@@ -1,0 +1,3 @@
+rootProject.name = 'TriviaChatReactNative'
+
+include ':app'
