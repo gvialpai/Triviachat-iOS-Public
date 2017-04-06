@@ -12,6 +12,7 @@ import {
 class Game extends Component{
   constructor(props){
     super(props);
+    this.handleAnswer = this.handleAnswer.bind(this);
     this.state = {
       questions: this.props.questionSet,
       currentQuestion: this.props.questionSet[0],
@@ -30,7 +31,11 @@ class Game extends Component{
     }
     return array;
   }
+  handleAnswer(answer){
+    console.log('answer :', answer)
+  }
   render(){
+    let _this = this;
     let allAnswers = [];
     let correctAnswer = this.state.correctAnswer;
     let incorrectAnswers = this.state.incorrectAnswers;
@@ -44,14 +49,14 @@ class Game extends Component{
 
     return (
       <View style={styles.mainContainer}>
-        <Text>Question: {this.state.currentQuestion.question}</Text>
-        <View>
+        <Text style={styles.title}>Question: {this.state.currentQuestion.question}</Text>
+        <View style={styles.answersDeck}>
           {
             allShuffledAnswers.map(function (item) {
               return (
-                <View key={item} >
-                  <TouchableHighlight>
-                    <Text> {item} </Text>
+                <View key={item} style={styles.answer}>
+                  <TouchableHighlight onPress={() => _this.handleAnswer(item)}>
+                    <Text style={styles.answerText}> {item} </Text>
                   </TouchableHighlight>
                 </View>
               )
@@ -60,8 +65,6 @@ class Game extends Component{
         </View>
 
       </View>
-
-      // <button onPress={() => this.nextQuestion()}
     )
   }
 };
@@ -78,26 +81,25 @@ var styles = StyleSheet.create({
     title: {
         marginBottom: 20,
         fontSize: 25,
-        textAlign: 'center',
+        textAlign: 'left',
         color: 'black'
     },
-    buttonText: {
-        fontSize: 18,
-        color: '#111',
-        alignSelf: 'center'
+    answersDeck: {
+      flex: 1,
+      flexDirection: 'column',
     },
-    button: {
-        height: 45,
-        flexDirection: 'row',
-        backgroundColor: 'white',
-        borderColor: 'white',
-        borderWidth: 1,
-        borderRadius: 8,
-        marginBottom: 10,
-        marginTop: 10,
-        alignSelf: 'stretch',
-        justifyContent: 'center'
+    answer: {
+      backgroundColor: 'white',
+      flex: 100,
+      height: 150,
+      marginTop: 20,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 4,
     },
+    answerText: {
+      fontSize: 20
+    }
 });
 
 module.exports = Game;

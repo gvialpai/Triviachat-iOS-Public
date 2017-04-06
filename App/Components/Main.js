@@ -40,7 +40,8 @@ var styles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 10,
         alignSelf: 'stretch',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
 
