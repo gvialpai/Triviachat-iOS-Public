@@ -7,8 +7,6 @@ import {
   View,
 } from 'react-native';
 
-
-
 class Game extends Component{
   constructor(props){
     super(props);
@@ -20,34 +18,44 @@ class Game extends Component{
       incorrectAnswers: this.props.questionSet[0].incorrect_answers,
       allAnswers: [],
       isUserAnswerCorrect: '',
+      score: 0,
     }
   }
   shuffle(array){
     for (let i = array.length-1; i >=0; i--) {
       let randomIndex = Math.floor(Math.random()*(i+1));
-        let itemAtIndex = array[randomIndex];
+      let itemAtIndex = array[randomIndex];
          
-        array[randomIndex] = array[i];
-        array[i] = itemAtIndex;
+      array[randomIndex] = array[i];
+      array[i] = itemAtIndex;
     }
     return array;
+  }
+  handleResult(){
+    if (this.state.isUserAnswerCorrect == true){
+      let score = this.state.score
+      this.setState({
+        score: score + 10
+      })
+      console.log('change color of background answer')
+    } else {
+      console.log('change color of background answer')
+    }
   }
   handleAnswer(answer){
     console.log('answer :', answer)
     if (answer == this.state.correctAnswer){
-      console.log('correct answer')
       this.setState({
         isUserAnswerCorrect: true,},
         () => {
-          console.log('this.state', this.state)
+          this.handleResult()
       })
     }
     else {
-      console.log('incorrect answer')
       this.setState({
         isUserAnswerCorrect: false,},
         () => {
-          console.log('this.state', this.state)
+          this.handleResult()
       })
     }
   }
@@ -56,7 +64,8 @@ class Game extends Component{
     let allAnswers = [];
     let correctAnswer = this.state.correctAnswer;
     let incorrectAnswers = this.state.incorrectAnswers;
-
+    let currentQuestion = this.state.currentQuestion
+    console.log('currentQuestion: ', currentQuestion)
     allAnswers.push(correctAnswer);
     for (i of incorrectAnswers) {
       allAnswers.push(i);
@@ -65,6 +74,7 @@ class Game extends Component{
 
     return (
       <View style={styles.mainContainer}>
+        <Text>Score: {this.state.score}</Text>
         <Text style={styles.title}>Question: {this.state.currentQuestion.question}</Text>
         <View style={styles.answersDeck}>
           {
