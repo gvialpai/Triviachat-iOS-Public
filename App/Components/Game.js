@@ -33,6 +33,12 @@ class Game extends Component{
   }
   handleAnswer(answer){
     console.log('answer :', answer)
+    if (answer == this.state.correctAnswer){
+      console.log('correct answer')
+    }
+    else {
+      console.log('incorrect answer')
+    }
   }
   render(){
     let _this = this;
@@ -45,7 +51,6 @@ class Game extends Component{
       allAnswers.push(i);
     }
     let allShuffledAnswers = this.shuffle(allAnswers)
-    console.log('allShuffledAnswers', allShuffledAnswers);
 
     return (
       <View style={styles.mainContainer}>
@@ -63,7 +68,6 @@ class Game extends Component{
             })
           }
         </View>
-
       </View>
     )
   }
