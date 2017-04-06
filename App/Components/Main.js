@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 var api = require('../Utils/api');
+var Game = require('./Game');
 
 var styles = StyleSheet.create({
     mainContainer: {
@@ -48,7 +49,6 @@ class Main extends Component{
     super(props);
     this.state = {
       difficultySelected: '',
-      currentQuestion: []
     }
   }
   handleSubmit(difficulty){
@@ -58,8 +58,9 @@ class Main extends Component{
     api.getQuestions(this.state.difficultySelected)
       .then((res) => {
         console.log(res)
-        this.setState({
-            questions: res.results
+        this.props.navigator.push({
+          component: Game,
+          passProps: {questionSet: res.results}
         })
       })
   }
