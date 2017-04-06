@@ -39,15 +39,26 @@ class Game extends Component{
     for (i of incorrectAnswers) {
       allAnswers.push(i);
     }
-    console.log('allAnswers', allAnswers);
     let allShuffledAnswers = this.shuffle(allAnswers)
     console.log('allShuffledAnswers', allShuffledAnswers);
-
-
 
     return (
       <View style={styles.mainContainer}>
         <Text>Question: {this.state.currentQuestion.question}</Text>
+        <View>
+          {
+            allShuffledAnswers.map(function (item) {
+              return (
+                <View key={item} >
+                  <TouchableHighlight>
+                    <Text> {item} </Text>
+                  </TouchableHighlight>
+                </View>
+              )
+            })
+          }
+        </View>
+
       </View>
 
       // <button onPress={() => this.nextQuestion()}
