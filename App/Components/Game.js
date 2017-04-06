@@ -18,7 +18,8 @@ class Game extends Component{
       currentQuestion: this.props.questionSet[0],
       correctAnswer: this.props.questionSet[0].correct_answer,
       incorrectAnswers: this.props.questionSet[0].incorrect_answers,
-      allAnswers: []
+      allAnswers: [],
+      isUserAnswerCorrect: '',
     }
   }
   shuffle(array){
@@ -35,9 +36,19 @@ class Game extends Component{
     console.log('answer :', answer)
     if (answer == this.state.correctAnswer){
       console.log('correct answer')
+      this.setState({
+        isUserAnswerCorrect: true,},
+        () => {
+          console.log('this.state', this.state)
+      })
     }
     else {
       console.log('incorrect answer')
+      this.setState({
+        isUserAnswerCorrect: false,},
+        () => {
+          console.log('this.state', this.state)
+      })
     }
   }
   render(){
