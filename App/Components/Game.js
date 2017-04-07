@@ -8,18 +8,23 @@ import {
 } from 'react-native';
 
 var Results = require('./Results');
+var encoder = require('../Utils/encoder');
 
 class Game extends Component{
   constructor(props){
     super(props);
     this.handleAnswer = this.handleAnswer.bind(this);
+
+    let incorrectAnswers = this.props.questionSet[0].incorrect_answers.map((s) => encoder.htmlDecode(s))
+
     this.state = {
       questions: this.props.questionSet,
       currentQuestion: this.props.questionSet[0],
-      correctAnswer: this.props.questionSet[0].correct_answer,
-      incorrectAnswers: this.props.questionSet[0].incorrect_answers,
+      currentQuestionTitle: encoder.htmlDecode(this.props.questionSet[0].question),
+      correctAnswer: encoder.htmlDecode(this.props.questionSet[0].correct_answer),
+      incorrectAnswers: incorrectAnswers,
       isUserAnswerCorrect: null,
-      allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
+      allShuffledAnswers: [...incorrectAnswers,this.props.questionSet[0].correct_answer],
       score: 0,
       questionNumber: 0,
     }
@@ -71,8 +76,9 @@ class Game extends Component{
 
     for (i ; i < questionSet.length; i++){
       nextQuestion = this.props.questionSet[i];
-      nextCorrectAnswer = nextQuestion.correct_answer;
-      nextIncorrectAnswers = nextQuestion.incorrect_answers;
+      nextQuestionTitle = encoder.htmlDecode(nextQuestion.question);
+      nextCorrectAnswer = encoder.htmlDecode(nextQuestion.correct_answer);
+      nextIncorrectAnswers =   nextQuestion.incorrect_answers.map((s) => encoder.htmlDecode(s));
       allShuffledAnswers = [...nextIncorrectAnswers,nextCorrectAnswer];
       break
     }
@@ -88,6 +94,7 @@ class Game extends Component{
       this.setState({
         userAnswer: userAnswer,
         currentQuestion: nextQuestion,
+        currentQuestionTitle: nextQuestionTitle,
         correctAnswer: nextCorrectAnswer,
         incorrectAnswers: nextIncorrectAnswers,
         allShuffledAnswers: allShuffledAnswers,
@@ -103,7 +110,7 @@ class Game extends Component{
     return (
       <View style={styles.mainContainer}>
         <Text>Score: {this.state.score}</Text>
-        <Text style={styles.title}>Question {this.state.questionNumber + 1}: {this.state.currentQuestion.question}</Text>
+        <Text style={styles.title}>Question {this.state.questionNumber + 1}: {this.state.currentQuestionTitle}</Text>
         <View style={styles.answersDeck}>
           {
             this.state.allShuffledAnswers.map((item) => {
