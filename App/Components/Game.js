@@ -16,10 +16,10 @@ class Game extends Component{
       currentQuestion: this.props.questionSet[0],
       correctAnswer: this.props.questionSet[0].correct_answer,
       incorrectAnswers: this.props.questionSet[0].incorrect_answers,
-      userAnswer: null,
       isUserAnswerCorrect: null,
       allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
       score: 0,
+      questionNumber: 0,
     }
   }
 
@@ -47,32 +47,40 @@ class Game extends Component{
     let isUserAnswerCorrect = this.state.isUserAnswerCorrect;
     let score = this.state.score;
     let userAnswer = this.state.userAnswer;
+    let questionSet = this.state.questions;
+    let questionNumber = this.state.questionNumber;
 
     if (answer == this.state.correctAnswer){
       isUserAnswerCorrect = true;
       score = score + 10;
-      userAnswer = answer
     }
     else {
       isUserAnswerCorrect = false;
-      score = score
-      userAnswer = answer
-      console.log('change color of background answer')
-
+      score = score;
     }
 
-    // shuufle
+    for (var i = questionNumber + 1; i < questionSet.length; i++){
+      nextQuestion = this.props.questionSet[i];
+      nextCorrectAnswer = nextQuestion.correct_answer;
+      nextIncorrectAnswers = nextQuestion.incorrect_answers;
+      allShuffledAnswers = [...nextIncorrectAnswers,nextCorrectAnswer];
+      break
+    }
+
+    this.shuffle(allShuffledAnswers)
 
     this.setState({
       isUserAnswerCorrect: isUserAnswerCorrect,
       score: score,
       userAnswer: userAnswer,
-      //shuffled answers from next question
+      currentQuestion: nextQuestion,
+      correctAnswer: nextCorrectAnswer,
+      incorrectAnswers: nextIncorrectAnswers,
+      allShuffledAnswers: allShuffledAnswers,
     });
   }
   render(){
     let _this = this;
-    let allShuffledAnswers = this.state.allShuffledAnswers;
     console.log('currentQuestion: ', this.state.currentQuestion)
 
     return (
