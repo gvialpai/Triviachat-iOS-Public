@@ -7,6 +7,8 @@ import {
   View,
 } from 'react-native';
 
+var Results = require('./Results');
+
 class Game extends Component{
   constructor(props){
     super(props);
@@ -49,6 +51,7 @@ class Game extends Component{
     let userAnswer = this.state.userAnswer;
     let questionSet = this.state.questions;
     let questionNumber = this.state.questionNumber;
+    let i = questionNumber + 1;
 
     if (answer == this.state.correctAnswer){
       isUserAnswerCorrect = true;
@@ -59,7 +62,14 @@ class Game extends Component{
       score = score;
     }
 
-    for (var i = questionNumber + 1; i < questionSet.length; i++){
+    if (i == questionSet.length){
+      this.props.navigator.push({
+        component: Results,
+        passProps: {score: this.state.score}
+      })
+    }
+
+    for (i ; i < questionSet.length; i++){
       nextQuestion = this.props.questionSet[i];
       nextCorrectAnswer = nextQuestion.correct_answer;
       nextIncorrectAnswers = nextQuestion.incorrect_answers;
@@ -93,7 +103,7 @@ class Game extends Component{
     return (
       <View style={styles.mainContainer}>
         <Text>Score: {this.state.score}</Text>
-        <Text style={styles.title}>Question: {this.state.currentQuestion.question}</Text>
+        <Text style={styles.title}>Question {this.state.questionNumber + 1}: {this.state.currentQuestion.question}</Text>
         <View style={styles.answersDeck}>
           {
             this.state.allShuffledAnswers.map((item) => {
