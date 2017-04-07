@@ -77,6 +77,8 @@ class Game extends Component{
       correctAnswer: nextCorrectAnswer,
       incorrectAnswers: nextIncorrectAnswers,
       allShuffledAnswers: allShuffledAnswers,
+      isUserAnswerCorrect: null,
+      questionNumber: questionNumber+1
     });
   }
   render(){
