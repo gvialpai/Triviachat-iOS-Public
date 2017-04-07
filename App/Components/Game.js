@@ -71,15 +71,20 @@ class Game extends Component{
 
     this.setState({
       isUserAnswerCorrect: isUserAnswerCorrect,
-      score: score,
-      userAnswer: userAnswer,
-      currentQuestion: nextQuestion,
-      correctAnswer: nextCorrectAnswer,
-      incorrectAnswers: nextIncorrectAnswers,
-      allShuffledAnswers: allShuffledAnswers,
-      isUserAnswerCorrect: null,
-      questionNumber: questionNumber+1
+      score: score,      
     });
+
+    setTimeout(function(){
+      this.setState({
+        userAnswer: userAnswer,
+        currentQuestion: nextQuestion,
+        correctAnswer: nextCorrectAnswer,
+        incorrectAnswers: nextIncorrectAnswers,
+        allShuffledAnswers: allShuffledAnswers,
+        isUserAnswerCorrect: null,
+        questionNumber: questionNumber+1
+      });
+    }.bind(this), 1500);
   }
   render(){
     let _this = this;
