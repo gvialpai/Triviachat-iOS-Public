@@ -71,10 +71,10 @@ class Game extends Component{
 
     this.setState({
       isUserAnswerCorrect: isUserAnswerCorrect,
-      score: score,      
+      score: score,
     });
 
-    setTimeout(function(){
+    setTimeout(() => {
       this.setState({
         userAnswer: userAnswer,
         currentQuestion: nextQuestion,
@@ -84,7 +84,7 @@ class Game extends Component{
         isUserAnswerCorrect: null,
         questionNumber: questionNumber+1
       });
-    }.bind(this), 1500);
+    }, 1500);
   }
   render(){
     let _this = this;
