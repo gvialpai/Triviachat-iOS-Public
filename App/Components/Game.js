@@ -8,23 +8,20 @@ import {
 } from 'react-native';
 
 var Results = require('./Results');
-var encoder = require('../Utils/encoder');
 
 class Game extends Component{
   constructor(props){
     super(props);
     this.handleAnswer = this.handleAnswer.bind(this);
 
-    let incorrectAnswers = this.props.questionSet[0].incorrect_answers.map((s) => encoder.htmlDecode(s))
-
     this.state = {
       questions: this.props.questionSet,
       currentQuestion: this.props.questionSet[0],
-      currentQuestionTitle: encoder.htmlDecode(this.props.questionSet[0].question),
-      correctAnswer: encoder.htmlDecode(this.props.questionSet[0].correct_answer),
-      incorrectAnswers: incorrectAnswers,
+      currentQuestionTitle: this.props.questionSet[0].question,
+      correctAnswer: this.props.questionSet[0].correct_answer,
+      incorrectAnswers: this.props.questionSet[0].incorrect_answers,
       isUserAnswerCorrect: null,
-      allShuffledAnswers: [...incorrectAnswers,this.props.questionSet[0].correct_answer],
+      allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
       score: 0,
       questionNumber: 0,
     }
@@ -76,9 +73,9 @@ class Game extends Component{
 
     for (i ; i < questionSet.length; i++){
       nextQuestion = this.props.questionSet[i];
-      nextQuestionTitle = encoder.htmlDecode(nextQuestion.question);
-      nextCorrectAnswer = encoder.htmlDecode(nextQuestion.correct_answer);
-      nextIncorrectAnswers =   nextQuestion.incorrect_answers.map((s) => encoder.htmlDecode(s));
+      nextQuestionTitle = nextQuestion.question;
+      nextCorrectAnswer = nextQuestion.correct_answer;
+      nextIncorrectAnswers =   nextQuestion.incorrect_answers;
       allShuffledAnswers = [...nextIncorrectAnswers,nextCorrectAnswer];
       break
     }
@@ -105,6 +102,7 @@ class Game extends Component{
   }
   render(){
     let _this = this;
+    let allShuffledAnswers = this.state.allShuffledAnswers
     console.log('currentQuestion: ', this.state.currentQuestion)
 
     return (
