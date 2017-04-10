@@ -58,7 +58,6 @@ class Main extends Component{
     })
     api.getQuestions(this.state.difficultySelected)
       .then((questionSet) => {
-        console.log('questionSet in Main', questionSet)
         this.props.navigator.push({
           component: Game,
           passProps: {questionSet: questionSet.results}

@@ -20,6 +20,7 @@ class Game extends Component{
       currentQuestionTitle: this.props.questionSet[0].question,
       correctAnswer: this.props.questionSet[0].correct_answer,
       incorrectAnswers: this.props.questionSet[0].incorrect_answers,
+      userAnswer: null,
       isUserAnswerCorrect: null,
       allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
       score: 0,
@@ -48,9 +49,9 @@ class Game extends Component{
 
   handleAnswer(answer){
     console.log('answer :', answer)
+    let userAnswer = answer
     let isUserAnswerCorrect = this.state.isUserAnswerCorrect;
     let score = this.state.score;
-    let userAnswer = this.state.userAnswer;
     let questionSet = this.state.questions;
     let questionNumber = this.state.questionNumber;
     let i = questionNumber + 1;
@@ -83,18 +84,19 @@ class Game extends Component{
     this.shuffle(allShuffledAnswers)
 
     this.setState({
+      userAnswer: userAnswer,
       isUserAnswerCorrect: isUserAnswerCorrect,
       score: score,
     });
 
     setTimeout(() => {
       this.setState({
-        userAnswer: userAnswer,
         currentQuestion: nextQuestion,
         currentQuestionTitle: nextQuestionTitle,
         correctAnswer: nextCorrectAnswer,
         incorrectAnswers: nextIncorrectAnswers,
         allShuffledAnswers: allShuffledAnswers,
+        userAnswer: null,
         isUserAnswerCorrect: null,
         questionNumber: questionNumber+1
       });
@@ -113,8 +115,8 @@ class Game extends Component{
           {
             this.state.allShuffledAnswers.map((item) => {
 
-              const correctAnswerStyle = (this.state.isUserAnswerCorrect == true) && this.state.correctAnswer === item ? {backgroundColor:'green'} : null;
-              const incorrectAnswerStyle = (this.state.isUserAnswerCorrect == false) && this.state.correctAnswer != item ? {backgroundColor:'red'} : null;
+              const correctAnswerStyle = (this.state.isUserAnswerCorrect == true && this.state.correctAnswer === item) && item == this.state.userAnswer ? {backgroundColor:'green'} : null;
+              const incorrectAnswerStyle = (this.state.isUserAnswerCorrect == false && this.state.correctAnswer != item) && item == this.state.userAnswer ? {backgroundColor:'red'} : null;
 
               return (
                 <View key={item} style={[styles.answer,correctAnswerStyle,incorrectAnswerStyle]}>
