@@ -21,14 +21,20 @@ var styles = StyleSheet.create({
     },
     title: {
         marginBottom: 20,
-        fontSize: 25,
+        fontSize: 50,
         textAlign: 'center',
-        color: 'black'
+        color: 'black',
+        fontFamily: 'Satisfy'
+    },
+    subtitle: {
+      fontSize: 25,
+      fontFamily: 'Roboto-Regular',
     },
     buttonText: {
         fontSize: 18,
         color: '#111',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        fontFamily: 'Roboto-Regular',
     },
     button: {
         height: 45,
@@ -68,10 +74,10 @@ class Main extends Component{
     return (
       <View style={styles.mainContainer}>
         <Text style={styles.title}>TriviaChat</Text>
-        <Text style={styles.title}>Selecting a level of difficulty</Text>
-        <TouchableOpacity style={styles.button} onPress={() => this.handleSubmit('easy')}><Text>Easy</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => this.handleSubmit('medium')}><Text>Medium</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => this.handleSubmit('hard')}><Text>Hard</Text></TouchableOpacity>
+        <Text style={styles.subtitle}>Selecting a level of difficulty</Text>
+        <TouchableOpacity style={styles.button} onPress={() => this.handleSubmit('easy')}><Text style={styles.buttonText}>Easy</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => this.handleSubmit('medium')}><Text style={styles.buttonText}>Medium</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => this.handleSubmit('hard')}><Text style={styles.buttonText}>Hard</Text></TouchableOpacity>
       </View>
     )
   }
