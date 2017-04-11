@@ -28,6 +28,7 @@ class Results extends Component{
     super(props);
     this.state = {
       score: this.props.score,
+      questionNumber: this.props.questionNumber,
     }
   }
   render(){
@@ -35,6 +36,9 @@ class Results extends Component{
       <View style={styles.mainContainer}>
         <Text style={styles.title}>All Questions finished</Text>
         <Text style={styles.title}>Final Score: {this.state.score}</Text>
+        <Text style={styles.title}>Total Answers: {this.state.questionNumber}</Text>
+        <Text style={styles.title}>Correct Answers: {this.state.score / 10}</Text>
+
       </View>
     )
   }

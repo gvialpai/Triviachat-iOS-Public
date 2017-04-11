@@ -25,7 +25,7 @@ class Game extends Component{
       allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
       score: 0,
       questionNumber: 0,
-      timer: 30000,
+      timer: 15000,
       interval: null
     }
   }
@@ -56,7 +56,10 @@ class Game extends Component{
       clearInterval(this.state.interval)
       this.props.navigator.push({
         component: Results,
-        passProps: {score: this.state.score}
+        passProps: {
+          score: this.state.score,
+          questionNumber: this.state.questionNumber
+        }
       })
     }
   }
