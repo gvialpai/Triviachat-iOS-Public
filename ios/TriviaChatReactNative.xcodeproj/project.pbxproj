@@ -37,6 +37,7 @@
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		696A968C1E9D0C9600BBA21B /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 696A968B1E9D0C9600BBA21B /* Roboto-Regular.ttf */; };
 		696A96A71E9D0E5300BBA21B /* Satisfy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 696A96A61E9D0E5300BBA21B /* Satisfy-Regular.ttf */; };
+		696A96A91E9D129B00BBA21B /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 696A96A81E9D129B00BBA21B /* Roboto-Bold.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
 
@@ -257,6 +258,7 @@
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		696A968B1E9D0C9600BBA21B /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Regular.ttf"; path = "../../../Downloads/fonts/Roboto/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		696A96A61E9D0E5300BBA21B /* Satisfy-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Satisfy-Regular.ttf"; path = "../../../Downloads/fonts/Satisfy/Satisfy-Regular.ttf"; sourceTree = "<group>"; };
+		696A96A81E9D129B00BBA21B /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Bold.ttf"; path = "../../../Downloads/fonts/Roboto/Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -468,6 +470,7 @@
 			isa = PBXGroup;
 			children = (
 				696A96A61E9D0E5300BBA21B /* Satisfy-Regular.ttf */,
+				696A96A81E9D129B00BBA21B /* Roboto-Bold.ttf */,
 				696A968B1E9D0C9600BBA21B /* Roboto-Regular.ttf */,
 				13B07FAE1A68108700A75B9A /* TriviaChatReactNative */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -852,6 +855,7 @@
 			files = (
 				696A968C1E9D0C9600BBA21B /* Roboto-Regular.ttf in Resources */,
 				696A96A71E9D0E5300BBA21B /* Satisfy-Regular.ttf in Resources */,
+				696A96A91E9D129B00BBA21B /* Roboto-Bold.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
