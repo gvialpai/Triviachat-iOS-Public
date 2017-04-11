@@ -25,7 +25,7 @@ class Game extends Component{
       allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
       score: 0,
       questionNumber: 0,
-      timer: 15000,
+      timer: 30000,
       interval: null
     }
   }
@@ -137,25 +137,30 @@ class Game extends Component{
 
     return (
       <View style={styles.mainContainer}>
-        <Text>Score: {this.state.score}</Text>
-        <Text>Time: {this.state.timer / 1000}</Text>
-        <Text style={styles.title}>Question {this.state.questionNumber + 1}: {this.state.currentQuestionTitle}</Text>
-        <View style={styles.answersDeck}>
-          {
-            this.state.allShuffledAnswers.map((item) => {
+        <View style={styles.playerInfo}>
+          <Text style={styles.score}>Score: {this.state.score}</Text>
+          <Text style={styles.timer}>Time: {this.state.timer / 1000}</Text>
+        </View>
+        <View style={styles.gameScreen}>
+          <View style={styles.questionContainer}><Text style={styles.title}><Text style={styles.questionSpan}>Question {this.state.questionNumber + 1}:</Text> {this.state.currentQuestionTitle}</Text></View>
+          <View style={styles.answersDeck}>
+            {
+              this.state.allShuffledAnswers.map((item) => {
 
-              const correctAnswerStyle = (this.state.isUserAnswerCorrect == true && this.state.correctAnswer === item) && item == this.state.userAnswer ? {backgroundColor:'green'} : null;
-              const incorrectAnswerStyle = (this.state.isUserAnswerCorrect == false && this.state.correctAnswer != item) && item == this.state.userAnswer ? {backgroundColor:'red'} : null;
+                const correctAnswerStyle = (this.state.userAnswer && this.state.correctAnswer === item) ? {backgroundColor:'rgb(39, 243, 177)'} : null;
+                const incorrectAnswerStyle = (this.state.isUserAnswerCorrect == false && this.state.correctAnswer != item) && item == this.state.userAnswer ? {backgroundColor:'rgb(243, 85, 39)'} : null;
 
-              return (
-                <View key={item} style={[styles.answer,correctAnswerStyle,incorrectAnswerStyle]}>
-                  <TouchableOpacity onPress={() => _this.handleAnswer(item)}>
-                    <Text style={styles.answerText}> {item} </Text>
+                return (
+                  <TouchableOpacity key={item} style={[styles.button,correctAnswerStyle,incorrectAnswerStyle]} onPress={() => _this.handleAnswer(item)}>
+                    <View>
+                        <Text style={styles.buttonText}> {item} </Text>
+                    </View>
                   </TouchableOpacity>
-                </View>
-              )
-            })
-          }
+
+                )
+              })
+            }
+          </View>
         </View>
       </View>
     )
@@ -169,29 +174,59 @@ var styles = StyleSheet.create({
         marginTop: 65,
         flexDirection: 'column',
         justifyContent: 'center',
-        backgroundColor: '#98c8f8'
+        backgroundColor: 'rgba(33, 150, 243, 0.53)',
+    },
+    playerInfo: {
+      flex: .1,
+      flexDirection: 'row',
+      justifyContent: 'space-between'
+    },
+    score: {
+      fontFamily: 'Roboto-Bold',
+    },
+    timer: {
+      fontFamily: 'Roboto-Bold',
+    },
+    gameScreen: {
+      flex: 1,
+      flexDirection: 'column',
+    },
+    questionSpan: {
+      color: '#525152',
+      fontFamily: 'Roboto-Bold'
+    },
+    questionContainer: {
+            borderWidth: 5,
+            borderRadius: 8,
+            borderColor: 'rgba(254, 193, 1, 0.76)',
+            backgroundColor: 'white',
+            padding: 5,
     },
     title: {
         marginBottom: 20,
-        fontSize: 25,
+        fontSize: 20,
         textAlign: 'left',
-        color: 'black'
+        color: '#504b50',
     },
     answersDeck: {
       flex: 1,
       flexDirection: 'column',
     },
-    answer: {
-      backgroundColor: 'white',
+    button: {
       flex: 100,
       height: 150,
       marginTop: 20,
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 4,
+      backgroundColor: 'white',
+      borderWidth: 5,
+      borderRadius: 8,
+      borderColor: 'rgba(87, 85, 86, 0.17)',
     },
-    answerText: {
-      fontSize: 20
+    buttonText: {
+      fontSize: 20,
+      fontFamily: 'Roboto-Regular',
     }
 });
 
