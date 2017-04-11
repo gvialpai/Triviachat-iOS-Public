@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -67,10 +67,11 @@ class Main extends Component{
   render(){
     return (
       <View style={styles.mainContainer}>
+        <Text style={styles.title}>TriviaChat</Text>
         <Text style={styles.title}>Selecting a level of difficulty</Text>
-        <TouchableHighlight style={styles.button} onPress={() => this.handleSubmit('easy')}><Text>Easy</Text></TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={() => this.handleSubmit('medium')}><Text>Medium</Text></TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={() => this.handleSubmit('hard')}><Text>Hard</Text></TouchableHighlight>
+        <TouchableOpacity style={styles.button} onPress={() => this.handleSubmit('easy')}><Text>Easy</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => this.handleSubmit('medium')}><Text>Medium</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => this.handleSubmit('hard')}><Text>Hard</Text></TouchableOpacity>
       </View>
     )
   }

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -120,9 +120,9 @@ class Game extends Component{
 
               return (
                 <View key={item} style={[styles.answer,correctAnswerStyle,incorrectAnswerStyle]}>
-                  <TouchableHighlight onPress={() => _this.handleAnswer(item)}>
+                  <TouchableOpacity onPress={() => _this.handleAnswer(item)}>
                     <Text style={styles.answerText}> {item} </Text>
-                  </TouchableHighlight>
+                  </TouchableOpacity>
                 </View>
               )
             })
