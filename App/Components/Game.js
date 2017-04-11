@@ -25,15 +25,36 @@ class Game extends Component{
       allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
       score: 0,
       questionNumber: 0,
+      timer: 30000,
+      interval: null
     }
   }
 
   componentDidMount(){
     let allShuffledAnswers = this.shuffle(this.state.allShuffledAnswers);
+    let interval = setInterval(this.counter.bind(this), 1000);
 
     this.setState({
-      allShuffledAnswers: allShuffledAnswers
+      allShuffledAnswers: allShuffledAnswers,
     });
+
+    this.setState({interval: interval})
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.state.interval)
+  }
+
+  counter(){
+    let timeLeft = this.state.timer;
+
+    if (timeLeft >= 1000){
+      this.setState({
+        timer: timeLeft - 1000
+      })
+    } else {
+      clearInterval(this.state.interval)
+    }
   }
 
   shuffle(questionAnswers){
@@ -110,6 +131,7 @@ class Game extends Component{
     return (
       <View style={styles.mainContainer}>
         <Text>Score: {this.state.score}</Text>
+        <Text>Time: {this.state.timer / 1000}</Text>
         <Text style={styles.title}>Question {this.state.questionNumber + 1}: {this.state.currentQuestionTitle}</Text>
         <View style={styles.answersDeck}>
           {
