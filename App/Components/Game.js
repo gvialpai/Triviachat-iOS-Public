@@ -54,6 +54,10 @@ class Game extends Component{
       })
     } else {
       clearInterval(this.state.interval)
+      this.props.navigator.push({
+        component: Results,
+        passProps: {score: this.state.score}
+      })
     }
   }
 
