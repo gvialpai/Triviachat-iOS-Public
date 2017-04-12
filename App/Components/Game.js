@@ -27,7 +27,7 @@ class Game extends Component{
       allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
       score: 0,
       questionNumber: 0,
-      timer: 30000,
+      timer: 1000,
       interval: null,
       modalVisible: false,
     }
@@ -95,7 +95,7 @@ class Game extends Component{
           allShuffledAnswers: [...questionSet[0].incorrect_answers,questionSet[0].correct_answer],
           score: 0,
           questionNumber: 0,
-          timer: 30000,
+          timer: 1000,
           interval: null,
           modalVisible: false,
         })
@@ -171,7 +171,6 @@ class Game extends Component{
   render(){
     let _this = this;
     let allShuffledAnswers = this.state.allShuffledAnswers
-    console.log('currentQuestion: ', this.state.currentQuestion)
     let modalBackgroundStyle = {
       backgroundColor: 'rgba(33, 150, 243, 0.53)',
     };
@@ -192,6 +191,7 @@ class Game extends Component{
             <View style={[styles.innerContainer, innerContainerTransparentStyle]}>
               <View style={styles.modalText}>
                 <Text style={styles.mainModalTitle}>Results</Text>
+                <Text style={styles.modalTitle}>Difficulty: {this.state.difficultySelected}</Text>
                 <Text style={styles.modalTitle}>Final Score: {this.state.score}</Text>
                 <Text style={styles.modalTitle}>Total Answers: {this.state.questionNumber}</Text>
                 <Text style={styles.modalTitle}>Correct Answers: {this.state.score / 10}</Text>
@@ -250,7 +250,7 @@ var styles = StyleSheet.create({
         backgroundColor: 'rgba(33, 150, 243, 0.53)',
     },
     modalContainer: {
-      flex: 0.75,
+      flex: 1,
       padding: 30,
       marginTop: 65,
       flexDirection: 'column',
@@ -259,11 +259,11 @@ var styles = StyleSheet.create({
     },
     innerContainer: {
       borderRadius: 5,
-      flex: .5,
+      flex: 1,
       justifyContent: 'space-around'
     },
     modalText: {
-      flex: 0.75
+      flex: 0.5
     },
     mainModalTitle: {
       fontFamily: 'Satisfy',
@@ -273,7 +273,7 @@ var styles = StyleSheet.create({
       color: 'rgba(254, 193, 1, 0.76)'
     },
     modalTitle: {
-        marginBottom: 60,
+        marginBottom: 10,
         fontSize: 25,
         color: 'black'
     },

@@ -3,7 +3,7 @@ var encoder = require('./encoder');
 var api = {
   getQuestions(difficulty){
     return new Promise((resolve,reject) => {
-      var url = `https://opentdb.com/api.php?amount=10&difficulty=${difficulty}&type=multiple`;
+      var url = `https://opentdb.com/api.php?amount=100&difficulty=${difficulty}&type=multiple`;
       console.log(url)
       fetch(url)
         .then((res) => res.json())
