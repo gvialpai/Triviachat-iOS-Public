@@ -9,7 +9,6 @@ import {
 
 var api = require('../Utils/api');
 var Game = require('./Game');
-var Results = require('./Results');
 
 var styles = StyleSheet.create({
     mainContainer: {
@@ -68,7 +67,10 @@ class Main extends Component{
       .then((questionSet) => {
         this.props.navigator.push({
           component: Game,
-          passProps: {questionSet: questionSet.results}
+          passProps: {
+            questionSet: questionSet.results,
+            difficultySelected: this.state.difficultySelected
+          }
         })
       })
   }

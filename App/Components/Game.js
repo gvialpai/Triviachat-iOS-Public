@@ -5,9 +5,10 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Modal
+  Modal,
 } from 'react-native';
 
+var api = require('../Utils/api');
 var Results = require('./Results');
 var Main = require('./Main');
 
@@ -17,6 +18,7 @@ class Game extends Component{
     this.handleAnswer = this.handleAnswer.bind(this);
 
     this.state = {
+      difficultySelected: this.props.difficultySelected,
       questions: this.props.questionSet,
       currentQuestion: this.props.questionSet[0],
       currentQuestionTitle: this.props.questionSet[0].question,
@@ -27,7 +29,7 @@ class Game extends Component{
       allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
       score: 0,
       questionNumber: 0,
-      timer: 3000,
+      timer: 5000,
       interval: null,
       modalVisible: false,
     }
@@ -35,19 +37,21 @@ class Game extends Component{
 
   componentDidMount(){
     let allShuffledAnswers = this.shuffle(this.state.allShuffledAnswers);
-    let interval = setInterval(this.counter.bind(this), 1000);
 
     this.setState({
       allShuffledAnswers: allShuffledAnswers,
     });
-
-    this.setState({interval: interval})
+    this.timerInterval()
   }
 
   componentWillUnmount(){
     clearInterval(this.state.interval)
   }
 
+  timerInterval(){
+    let interval = setInterval(this.counter.bind(this), 1000);
+    this.setState({interval: interval});
+  }
   counter(){
     let timeLeft = this.state.timer;
 
@@ -70,10 +74,36 @@ class Game extends Component{
       this.setState({
         modalVisible: false,
       })
-      this.props.navigator.push({
-        component: Main,
-      })
     }
+  }
+
+  goToHome(modalVisibility){
+    this.showResultScreen(!this.state.modalVisible)
+    this.props.navigator.popToTop();
+  }
+
+  restartGame(modalVisibility){
+    api.getQuestions(this.state.difficultySelected)
+      .then((questionSet) => {
+        var questionSet = questionSet.results
+        console.log('questionSet in Game.js', questionSet)
+        this.setState({
+          currentQuestion: questionSet[0],
+          currentQuestionTitle: questionSet[0].question,
+          correctAnswer: questionSet[0].correct_answer,
+          incorrectAnswers: questionSet[0].incorrect_answers,
+          userAnswer: null,
+          isUserAnswerCorrect: null,
+          allShuffledAnswers: [...questionSet[0].incorrect_answers,questionSet[0].correct_answer],
+          score: 0,
+          questionNumber: 0,
+          timer: 5000,
+          interval: null,
+          modalVisible: false,
+        })
+        // this.showResultScreen(!this.state.modalVisible);
+        this.timerInterval()
+      })
   }
 
   shuffle(questionAnswers){
@@ -139,6 +169,7 @@ class Game extends Component{
       });
     }, 1500);
   }
+
   render(){
     let _this = this;
     let allShuffledAnswers = this.state.allShuffledAnswers
@@ -166,10 +197,16 @@ class Game extends Component{
               <Text style={styles.modalTitle}>Final Score: {this.state.score}</Text>
               <Text style={styles.modalTitle}>Total Answers: {this.state.questionNumber}</Text>
               <Text style={styles.modalTitle}>Correct Answers: {this.state.score / 10}</Text>
-              <TouchableOpacity style={styles.startNewGame} onPress={() => {
-                this.showResultScreen(!this.state.modalVisible)
-              }}><Text>Home</Text>
-              </TouchableOpacity>
+              <View style={styles.modalRowButton}>
+                <TouchableOpacity style={styles.modalButton} onPress={() => {
+                  this.goToHome(!this.state.modalVisible)
+                }}><Text style={styles.modalButtonText}>Home</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.modalButton} onPress={() => {
+                  this.restartGame(!this.state.modalVisible)
+                }}><Text style={styles.modalButtonText}>Restart</Text>
+                </TouchableOpacity>
+              </View>
             </View>
            </View>
           </Modal>
@@ -194,7 +231,6 @@ class Game extends Component{
                         <Text style={styles.buttonText}> {item} </Text>
                     </View>
                   </TouchableOpacity>
-
                 )
               })
             }
@@ -237,8 +273,26 @@ var styles = StyleSheet.create({
         fontSize: 25,
         color: 'black'
     },
-    startNewGame: {
-      backgroundColor: 'black'
+    modalRowButton: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between'
+    },
+    modalButton: {
+      height: 50,
+      width: 125,
+      borderWidth: 5,
+      borderRadius: 8,
+      borderColor: 'rgba(87, 85, 86, 0.17)',
+      backgroundColor: '#FEC101',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    modalButtonText: {
+      fontSize: 25,
+      color: 'white',
+      alignSelf: 'center',
+      fontFamily: 'Roboto-Bold',
     },
     playerInfo: {
       flex: .1,
