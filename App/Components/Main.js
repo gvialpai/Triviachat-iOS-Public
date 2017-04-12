@@ -63,7 +63,7 @@ class Main extends Component{
     this.setState({
       difficultySelected: difficulty
     })
-    api.getQuestions(this.state.difficultySelected)
+    api.getQuestions(difficulty)
       .then((questionSet) => {
         this.props.navigator.push({
           component: Game,

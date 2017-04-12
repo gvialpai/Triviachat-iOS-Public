@@ -9,8 +9,6 @@ import {
 } from 'react-native';
 
 var api = require('../Utils/api');
-var Results = require('./Results');
-var Main = require('./Main');
 
 class Game extends Component{
   constructor(props){
@@ -29,7 +27,7 @@ class Game extends Component{
       allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
       score: 0,
       questionNumber: 0,
-      timer: 5000,
+      timer: 30000,
       interval: null,
       modalVisible: false,
     }
@@ -97,7 +95,7 @@ class Game extends Component{
           allShuffledAnswers: [...questionSet[0].incorrect_answers,questionSet[0].correct_answer],
           score: 0,
           questionNumber: 0,
-          timer: 5000,
+          timer: 30000,
           interval: null,
           modalVisible: false,
         })
@@ -192,11 +190,12 @@ class Game extends Component{
             >
            <View style={[styles.modalContainer, modalBackgroundStyle]}>
             <View style={[styles.innerContainer, innerContainerTransparentStyle]}>
-
-              <Text style={styles.mainModalTitle}>Results</Text>
-              <Text style={styles.modalTitle}>Final Score: {this.state.score}</Text>
-              <Text style={styles.modalTitle}>Total Answers: {this.state.questionNumber}</Text>
-              <Text style={styles.modalTitle}>Correct Answers: {this.state.score / 10}</Text>
+              <View style={styles.modalText}>
+                <Text style={styles.mainModalTitle}>Results</Text>
+                <Text style={styles.modalTitle}>Final Score: {this.state.score}</Text>
+                <Text style={styles.modalTitle}>Total Answers: {this.state.questionNumber}</Text>
+                <Text style={styles.modalTitle}>Correct Answers: {this.state.score / 10}</Text>
+              </View>
               <View style={styles.modalRowButton}>
                 <TouchableOpacity style={styles.modalButton} onPress={() => {
                   this.goToHome(!this.state.modalVisible)
@@ -251,7 +250,7 @@ var styles = StyleSheet.create({
         backgroundColor: 'rgba(33, 150, 243, 0.53)',
     },
     modalContainer: {
-      flex: 1,
+      flex: 0.75,
       padding: 30,
       marginTop: 65,
       flexDirection: 'column',
@@ -260,11 +259,16 @@ var styles = StyleSheet.create({
     },
     innerContainer: {
       borderRadius: 5,
+      flex: .5,
+      justifyContent: 'space-around'
+    },
+    modalText: {
+      flex: 0.75
     },
     mainModalTitle: {
       fontFamily: 'Satisfy',
       fontSize: 50,
-      marginBottom: 40,
+      marginBottom: 50,
       textAlign: 'center',
       color: 'rgba(254, 193, 1, 0.76)'
     },
@@ -274,7 +278,7 @@ var styles = StyleSheet.create({
         color: 'black'
     },
     modalRowButton: {
-      flex: 1,
+      flex: 0.15,
       flexDirection: 'row',
       justifyContent: 'space-between'
     },
