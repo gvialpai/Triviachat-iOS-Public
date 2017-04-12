@@ -5,9 +5,11 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Modal
 } from 'react-native';
 
 var Results = require('./Results');
+var Main = require('./Main');
 
 class Game extends Component{
   constructor(props){
@@ -25,8 +27,9 @@ class Game extends Component{
       allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
       score: 0,
       questionNumber: 0,
-      timer: 30000,
-      interval: null
+      timer: 3000,
+      interval: null,
+      modalVisible: false,
     }
   }
 
@@ -53,13 +56,22 @@ class Game extends Component{
         timer: timeLeft - 1000
       })
     } else {
-      clearInterval(this.state.interval)
+      clearInterval(this.state.interval);
+      this.showResultScreen()
+    }
+  }
+
+  showResultScreen(){
+    if (!this.state.modalVisible){
+      this.setState({
+        modalVisible: true,
+      })
+    } else {
+      this.setState({
+        modalVisible: false,
+      })
       this.props.navigator.push({
-        component: Results,
-        passProps: {
-          score: this.state.score,
-          questionNumber: this.state.questionNumber
-        }
+        component: Main,
       })
     }
   }
@@ -94,10 +106,7 @@ class Game extends Component{
     }
 
     if (i == questionSet.length){
-      this.props.navigator.push({
-        component: Results,
-        passProps: {score: this.state.score}
-      })
+      this.showResultScreen()
     }
 
     for (i ; i < questionSet.length; i++){
@@ -134,9 +143,38 @@ class Game extends Component{
     let _this = this;
     let allShuffledAnswers = this.state.allShuffledAnswers
     console.log('currentQuestion: ', this.state.currentQuestion)
+    let modalBackgroundStyle = {
+      backgroundColor: 'rgba(33, 150, 243, 0.53)',
+    };
+    let innerContainerTransparentStyle = {backgroundColor: 'white', padding: 20};
 
     return (
       <View style={styles.mainContainer}>
+
+        <View>
+          <Modal
+            animationType={"slide"}
+            transparent={false}
+            visible={this.state.modalVisible}
+            supportedOrientations={['portrait']}
+            onRequestClose={() => {alert("Modal has been closed.")}}
+            >
+           <View style={[styles.modalContainer, modalBackgroundStyle]}>
+            <View style={[styles.innerContainer, innerContainerTransparentStyle]}>
+
+              <Text style={styles.mainModalTitle}>Results</Text>
+              <Text style={styles.modalTitle}>Final Score: {this.state.score}</Text>
+              <Text style={styles.modalTitle}>Total Answers: {this.state.questionNumber}</Text>
+              <Text style={styles.modalTitle}>Correct Answers: {this.state.score / 10}</Text>
+              <TouchableOpacity style={styles.startNewGame} onPress={() => {
+                this.showResultScreen(!this.state.modalVisible)
+              }}><Text>Home</Text>
+              </TouchableOpacity>
+            </View>
+           </View>
+          </Modal>
+        </View>
+
         <View style={styles.playerInfo}>
           <Text style={styles.score}>Score: {this.state.score}</Text>
           <Text style={styles.timer}>Time: {this.state.timer / 1000}</Text>
@@ -176,6 +214,32 @@ var styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: 'rgba(33, 150, 243, 0.53)',
     },
+    modalContainer: {
+      flex: 1,
+      padding: 30,
+      marginTop: 65,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      backgroundColor: 'rgba(33, 150, 243, 0.53)'
+    },
+    innerContainer: {
+      borderRadius: 5,
+    },
+    mainModalTitle: {
+      fontFamily: 'Satisfy',
+      fontSize: 50,
+      marginBottom: 40,
+      textAlign: 'center',
+      color: 'rgba(254, 193, 1, 0.76)'
+    },
+    modalTitle: {
+        marginBottom: 60,
+        fontSize: 25,
+        color: 'black'
+    },
+    startNewGame: {
+      backgroundColor: 'black'
+    },
     playerInfo: {
       flex: .1,
       flexDirection: 'row',
@@ -196,17 +260,17 @@ var styles = StyleSheet.create({
       fontFamily: 'Roboto-Bold'
     },
     questionContainer: {
-            borderWidth: 5,
-            borderRadius: 8,
-            borderColor: 'rgba(254, 193, 1, 0.76)',
-            backgroundColor: 'white',
-            padding: 5,
+      borderWidth: 5,
+      borderRadius: 8,
+      borderColor: 'rgba(254, 193, 1, 0.76)',
+      backgroundColor: 'white',
+      padding: 5,
     },
     title: {
-        marginBottom: 20,
-        fontSize: 20,
-        textAlign: 'left',
-        color: '#504b50',
+      marginBottom: 20,
+      fontSize: 20,
+      textAlign: 'left',
+      color: '#504b50',
     },
     answersDeck: {
       flex: 1,

@@ -22,7 +22,7 @@ class TriviaChatReactNative extends Component {
       <NavigatorIOS
         style={styles.container}
         initialRoute={{
-          title: 'Triviachat',
+          title: 'Home',
           component: Main
         }} />
     );

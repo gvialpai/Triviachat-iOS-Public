@@ -9,6 +9,7 @@ import {
 
 var api = require('../Utils/api');
 var Game = require('./Game');
+var Results = require('./Results');
 
 var styles = StyleSheet.create({
     mainContainer: {
