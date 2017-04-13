@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   Modal,
+  AsyncStorage
 } from 'react-native';
 
 var api = require('../Utils/api');
@@ -27,7 +28,7 @@ class Game extends Component{
       allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
       score: 0,
       questionNumber: 0,
-      timer: 1000,
+      timer: 10000,
       interval: null,
       modalVisible: false,
     }
@@ -59,11 +60,13 @@ class Game extends Component{
       })
     } else {
       clearInterval(this.state.interval);
+      this.setScore(this.state.difficultySelected)
       this.showResultScreen()
     }
   }
 
   showResultScreen(){
+    this.getAllScores()
     if (!this.state.modalVisible){
       this.setState({
         modalVisible: true,
@@ -75,6 +78,39 @@ class Game extends Component{
     }
   }
 
+  setScore(difficulty){
+    this.getAllScores(difficulty).then(allScores => {
+      let latestScore = this.state.score;
+
+      allScores[difficulty].scores =   allScores[difficulty].scores.concat(latestScore)
+
+      console.log('latestScore after push', latestScore)
+
+      try {
+        AsyncStorage.setItem('scores', JSON.stringify(allScores));
+      } catch (error) {
+        console.log('Error saving data', error)
+      }
+    })
+  }
+
+  getAllScores(difficulty){
+    return new Promise((resolve) => {
+      AsyncStorage.getItem('scores').then((allScores) => {
+        allScores = JSON.parse(allScores)
+
+        if(!allScores){
+          allScores = {
+            [difficulty]: {
+              scores: []
+            }
+          }
+        }
+        resolve(allScores);
+      })
+    })
+  }
+
   goToHome(modalVisibility){
     this.showResultScreen(!this.state.modalVisible)
     this.props.navigator.popToTop();
@@ -84,7 +120,6 @@ class Game extends Component{
     api.getQuestions(this.state.difficultySelected)
       .then((questionSet) => {
         var questionSet = questionSet.results
-        console.log('questionSet in Game.js', questionSet)
         this.setState({
           currentQuestion: questionSet[0],
           currentQuestionTitle: questionSet[0].question,
@@ -95,11 +130,10 @@ class Game extends Component{
           allShuffledAnswers: [...questionSet[0].incorrect_answers,questionSet[0].correct_answer],
           score: 0,
           questionNumber: 0,
-          timer: 1000,
+          timer: 10000,
           interval: null,
           modalVisible: false,
         })
-        // this.showResultScreen(!this.state.modalVisible);
         this.timerInterval()
       })
   }
@@ -116,7 +150,6 @@ class Game extends Component{
   }
 
   handleAnswer(answer){
-    console.log('answer :', answer)
     let userAnswer = answer
     let isUserAnswerCorrect = this.state.isUserAnswerCorrect;
     let score = this.state.score;
@@ -134,6 +167,7 @@ class Game extends Component{
     }
 
     if (i == questionSet.length){
+      this.setScore(this.state.difficultySelected)
       this.showResultScreen()
     }
 
