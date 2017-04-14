@@ -28,10 +28,12 @@ class Game extends Component{
       allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
       score: 0,
       questionNumber: 0,
-      timer: 10000,
+      timer: 30000,
       interval: null,
       modalVisible: false,
     }
+
+    var allScores = {}
   }
 
   componentDidMount(){
@@ -61,12 +63,13 @@ class Game extends Component{
     } else {
       clearInterval(this.state.interval);
       this.setScore(this.state.difficultySelected)
-      this.showResultScreen()
+      this.showResultScreen(this.state.difficultySelected)
     }
   }
 
-  showResultScreen(){
-    this.getAllScores()
+  showResultScreen(difficulty){
+    console.log('difficulty in showResultScreen', difficulty)
+    this.getAllScores(difficulty)
     if (!this.state.modalVisible){
       this.setState({
         modalVisible: true,
@@ -81,6 +84,7 @@ class Game extends Component{
   setScore(difficulty){
     this.getAllScores(difficulty).then(allScores => {
       let latestScore = this.state.score;
+      console.log('allScores in setScore', allScores)
 
       allScores[difficulty].scores =   allScores[difficulty].scores.concat(latestScore)
 
@@ -98,20 +102,21 @@ class Game extends Component{
     return new Promise((resolve) => {
       AsyncStorage.getItem('scores').then((allScores) => {
         allScores = JSON.parse(allScores)
+        console.log('difficulty in getAllScores', difficulty)
 
-        if(!allScores){
-          allScores = {
-            [difficulty]: {
-              scores: []
-            }
-          }
+        if(!allScores[difficulty]){
+          allScores[difficulty] = {scores: []}
         }
+        console.log('allScores in getAllScores', allScores)
         resolve(allScores);
       })
     })
   }
 
   goToHome(modalVisibility){
+    this.setState({
+      difficultySelected: null,
+    })
     this.showResultScreen(!this.state.modalVisible)
     this.props.navigator.popToTop();
   }
@@ -130,7 +135,7 @@ class Game extends Component{
           allShuffledAnswers: [...questionSet[0].incorrect_answers,questionSet[0].correct_answer],
           score: 0,
           questionNumber: 0,
-          timer: 10000,
+          timer: 30000,
           interval: null,
           modalVisible: false,
         })
