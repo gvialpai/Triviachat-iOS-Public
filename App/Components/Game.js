@@ -28,11 +28,10 @@ class Game extends Component{
       allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
       score: 0,
       questionNumber: 0,
-      timer: 30000,
+      timer: 2000,
       interval: null,
       modalVisible: false,
     }
-
     var allScores = {}
   }
 
@@ -63,60 +62,59 @@ class Game extends Component{
     } else {
       clearInterval(this.state.interval);
       this.setScore(this.state.difficultySelected)
-      this.showResultScreen(this.state.difficultySelected)
+      // this.showResultScreen(this.state.difficultySelected)
     }
   }
 
   showResultScreen(difficulty){
     console.log('difficulty in showResultScreen', difficulty)
-    this.getAllScores(difficulty)
-    if (!this.state.modalVisible){
-      this.setState({
-        modalVisible: true,
-      })
-    } else {
-      this.setState({
-        modalVisible: false,
-      })
-    }
+      if (!this.state.modalVisible){
+        this.setState({
+          modalVisible: true,
+        })
+      } else {
+        this.setState({
+          modalVisible: false,
+        })
+      }
   }
 
   setScore(difficulty){
     this.getAllScores(difficulty).then(allScores => {
       let latestScore = this.state.score;
-      console.log('allScores in setScore', allScores)
-
-      allScores[difficulty].scores =   allScores[difficulty].scores.concat(latestScore)
-
-      console.log('latestScore after push', latestScore)
+      console.log('allScores in setScore', allScores);
+      allScores[difficulty].scores =   allScores[difficulty].scores.concat(latestScore);
+      console.log('allScores for difficulty', allScores[difficulty].scores);
+      allScores[difficulty].scores = allScores[difficulty].scores.sort(this.sortArray);
+      console.log('allScores for difficulty after sorting', allScores[difficulty].scores);
+      this.showResultScreen(difficulty);
 
       try {
         AsyncStorage.setItem('scores', JSON.stringify(allScores));
       } catch (error) {
-        console.log('Error saving data', error)
+        console.log('Error saving data', error);
       }
     })
+  }
+
+  sortArray(a,b){
+    return b - a;
   }
 
   getAllScores(difficulty){
     return new Promise((resolve) => {
       AsyncStorage.getItem('scores').then((allScores) => {
         allScores = JSON.parse(allScores)
-        console.log('difficulty in getAllScores', difficulty)
 
         if(!allScores[difficulty]){
           allScores[difficulty] = {scores: []}
         }
-        console.log('allScores in getAllScores', allScores)
         resolve(allScores);
       })
     })
   }
 
   goToHome(modalVisibility){
-    this.setState({
-      difficultySelected: null,
-    })
     this.showResultScreen(!this.state.modalVisible)
     this.props.navigator.popToTop();
   }
@@ -135,7 +133,7 @@ class Game extends Component{
           allShuffledAnswers: [...questionSet[0].incorrect_answers,questionSet[0].correct_answer],
           score: 0,
           questionNumber: 0,
-          timer: 30000,
+          timer: 2000,
           interval: null,
           modalVisible: false,
         })
@@ -172,7 +170,7 @@ class Game extends Component{
     }
 
     if (i == questionSet.length){
-      this.setScore(this.state.difficultySelected)
+      // this.setScore(this.state.difficultySelected)
       this.showResultScreen()
     }
 
