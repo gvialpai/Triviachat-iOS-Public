@@ -31,6 +31,7 @@ class Game extends Component{
       timer: 2000,
       interval: null,
       modalVisible: false,
+      topScoresByDifficultyLevel: [],
     }
     var allScores = {}
   }
@@ -62,12 +63,12 @@ class Game extends Component{
     } else {
       clearInterval(this.state.interval);
       this.setScore(this.state.difficultySelected)
-      // this.showResultScreen(this.state.difficultySelected)
     }
   }
 
   showResultScreen(difficulty){
     console.log('difficulty in showResultScreen', difficulty)
+    console.log("this.state.topScoresByDifficultyLevel: ", this.state.topScoresByDifficultyLevel)
       if (!this.state.modalVisible){
         this.setState({
           modalVisible: true,
@@ -82,15 +83,21 @@ class Game extends Component{
   setScore(difficulty){
     this.getAllScores(difficulty).then(allScores => {
       let latestScore = this.state.score;
+      let scoresByDifficultyLevel = allScores[difficulty].scores
       console.log('allScores in setScore', allScores);
-      allScores[difficulty].scores =   allScores[difficulty].scores.concat(latestScore);
-      console.log('allScores for difficulty', allScores[difficulty].scores);
-      allScores[difficulty].scores = allScores[difficulty].scores.sort(this.sortArray);
-      console.log('allScores for difficulty after sorting', allScores[difficulty].scores);
-      this.showResultScreen(difficulty);
+      scoresByDifficultyLevel =   scoresByDifficultyLevel.concat(latestScore);
+      console.log('allScores for difficulty', scoresByDifficultyLevel);
+      scoresByDifficultyLevel = scoresByDifficultyLevel.sort(this.sortArray);
+      console.log('allScores for difficulty after sorting', scoresByDifficultyLevel);
+      let topScoresByDifficultyLevel = scoresByDifficultyLevel.splice(0, scoresByDifficultyLevel.length - (scoresByDifficultyLevel.length -5))
+      console.log('topScoresByDifficultyLevel', topScoresByDifficultyLevel)
+      this.setState({
+        topScoresByDifficultyLevel: topScoresByDifficultyLevel
+      })
 
       try {
         AsyncStorage.setItem('scores', JSON.stringify(allScores));
+        this.showResultScreen(difficulty);
       } catch (error) {
         console.log('Error saving data', error);
       }
@@ -159,6 +166,7 @@ class Game extends Component{
     let questionSet = this.state.questions;
     let questionNumber = this.state.questionNumber;
     let i = questionNumber + 1;
+    let difficulty = this.state.difficultySelected
 
     if (answer == this.state.correctAnswer){
       isUserAnswerCorrect = true;
@@ -170,8 +178,7 @@ class Game extends Component{
     }
 
     if (i == questionSet.length){
-      // this.setScore(this.state.difficultySelected)
-      this.showResultScreen()
+      this.setScore(difficulty)
     }
 
     for (i ; i < questionSet.length; i++){
@@ -232,6 +239,17 @@ class Game extends Component{
                 <Text style={styles.modalTitle}>Final Score: {this.state.score}</Text>
                 <Text style={styles.modalTitle}>Total Answers: {this.state.questionNumber}</Text>
                 <Text style={styles.modalTitle}>Correct Answers: {this.state.score / 10}</Text>
+              </View>
+              <View style={styles.leaderboard}>
+                {
+                  this.state.topScoresByDifficultyLevel.map((item, index) => {
+                    return (
+                      <View key={index}>
+                        <Text>{item}</Text>
+                      </View>
+                    )
+                  })
+                }
               </View>
               <View style={styles.modalRowButton}>
                 <TouchableOpacity style={styles.modalButton} onPress={() => {
@@ -313,6 +331,10 @@ var styles = StyleSheet.create({
         marginBottom: 10,
         fontSize: 25,
         color: 'black'
+    },
+    leaderboard: {
+      flex: .5,
+      flexDirection: 'column'
     },
     modalRowButton: {
       flex: 0.15,
