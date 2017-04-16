@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 var api = require('../Utils/api');
+var Score = require('./Score');
 
 class Game extends Component{
   constructor(props){
@@ -28,7 +29,7 @@ class Game extends Component{
       allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
       score: 0,
       questionNumber: 0,
-      timer: 1000,
+      timer: 30000,
       interval: null,
       modalVisible: false,
       topScoresByDifficultyLevel: {},
@@ -93,9 +94,9 @@ class Game extends Component{
       console.log('topFiveScores', topFiveScores)
       let topScoresByDifficultyLevel = this.state.topScoresByDifficultyLevel;
       topScoresByDifficultyLevel[difficulty] = {'topFiveScores': topFiveScores};
-      console.log('topScoresByDifficultyLevel[difficulty]', topScoresByDifficultyLevel[difficulty])
+      console.log('topScoresByDifficultyLevel', topScoresByDifficultyLevel)
       this.setState({
-        topScoresByDifficultyLevel: topScoresByDifficultyLevel[difficulty],
+        topScoresByDifficultyLevel: topScoresByDifficultyLevel,
       })
 
       try {
@@ -143,7 +144,7 @@ class Game extends Component{
           allShuffledAnswers: [...questionSet[0].incorrect_answers,questionSet[0].correct_answer],
           score: 0,
           questionNumber: 0,
-          timer: 1000,
+          timer: 30000,
           interval: null,
           modalVisible: false,
         })
@@ -222,6 +223,7 @@ class Game extends Component{
       backgroundColor: 'rgba(33, 150, 243, 0.53)',
     };
     let innerContainerTransparentStyle = {backgroundColor: 'white', padding: 20};
+    let score = this.state.score;
 
     return (
       <View style={styles.mainContainer}>
@@ -259,7 +261,7 @@ class Game extends Component{
         </View>
 
         <View style={styles.playerInfo}>
-          <Text style={styles.score}>Score: {this.state.score}</Text>
+          <Score score={score} />
           <Text style={styles.timer}>Time: {this.state.timer / 1000}</Text>
         </View>
         <View style={styles.gameScreen}>
@@ -353,9 +355,6 @@ var styles = StyleSheet.create({
       flex: .1,
       flexDirection: 'row',
       justifyContent: 'space-between'
-    },
-    score: {
-      fontFamily: 'Roboto-Bold',
     },
     timer: {
       fontFamily: 'Roboto-Bold',
