@@ -11,6 +11,9 @@ import {
 
 var api = require('../Utils/api');
 var Score = require('./Score');
+var Timer = require('./Timer');
+var Question = require('./Question');
+var Answers = require('./Answers');
 
 class Game extends Component{
   constructor(props){
@@ -218,12 +221,20 @@ class Game extends Component{
 
   render(){
     let _this = this;
-    let allShuffledAnswers = this.state.allShuffledAnswers
+    let allShuffledAnswers = this.state.allShuffledAnswers;
+    let userAnswer = this.state.userAnswer;
+    let isUserAnswerCorrect = this.state.isUserAnswerCorrect;
+    let correctAnswer = this.state.correctAnswer;
+
+    let score = this.state.score;
+    let timer = this.state.timer;
+    let currentQuestionTitle = this.state.currentQuestionTitle;
+    let questionNumber = this.state.questionNumber;
+
     let modalBackgroundStyle = {
       backgroundColor: 'rgba(33, 150, 243, 0.53)',
     };
     let innerContainerTransparentStyle = {backgroundColor: 'white', padding: 20};
-    let score = this.state.score;
 
     return (
       <View style={styles.mainContainer}>
@@ -262,27 +273,11 @@ class Game extends Component{
 
         <View style={styles.playerInfo}>
           <Score score={score} />
-          <Text style={styles.timer}>Time: {this.state.timer / 1000}</Text>
+          <Timer timer={timer} />
         </View>
         <View style={styles.gameScreen}>
-          <View style={styles.questionContainer}><Text style={styles.title}><Text style={styles.questionSpan}>Question {this.state.questionNumber + 1}:</Text> {this.state.currentQuestionTitle}</Text></View>
-          <View style={styles.answersDeck}>
-            {
-              this.state.allShuffledAnswers.map((item) => {
-
-                const correctAnswerStyle = (this.state.userAnswer && this.state.correctAnswer === item) ? {backgroundColor:'rgb(39, 243, 177)'} : null;
-                const incorrectAnswerStyle = (this.state.isUserAnswerCorrect == false && this.state.correctAnswer != item) && item == this.state.userAnswer ? {backgroundColor:'rgb(243, 85, 39)'} : null;
-
-                return (
-                  <TouchableOpacity key={item} style={[styles.button,correctAnswerStyle,incorrectAnswerStyle]} onPress={() => _this.handleAnswer(item)}>
-                    <View>
-                        <Text style={styles.buttonText}> {item} </Text>
-                    </View>
-                  </TouchableOpacity>
-                )
-              })
-            }
-          </View>
+          <Question questionNumber={questionNumber} currentQuestionTitle={currentQuestionTitle} />
+          <Answers allShuffledAnswers={allShuffledAnswers} userAnswer={userAnswer} correctAnswer={correctAnswer} isUserAnswerCorrect={isUserAnswerCorrect} onPress={() => _this.handleAnswer(item)}/>
         </View>
       </View>
     )
@@ -356,50 +351,10 @@ var styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between'
     },
-    timer: {
-      fontFamily: 'Roboto-Bold',
-    },
     gameScreen: {
       flex: 1,
       flexDirection: 'column',
     },
-    questionSpan: {
-      color: '#525152',
-      fontFamily: 'Roboto-Bold'
-    },
-    questionContainer: {
-      borderWidth: 5,
-      borderRadius: 8,
-      borderColor: 'rgba(254, 193, 1, 0.76)',
-      backgroundColor: 'white',
-      padding: 5,
-    },
-    title: {
-      marginBottom: 20,
-      fontSize: 20,
-      textAlign: 'left',
-      color: '#504b50',
-    },
-    answersDeck: {
-      flex: 1,
-      flexDirection: 'column',
-    },
-    button: {
-      flex: 100,
-      height: 150,
-      marginTop: 20,
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: 4,
-      backgroundColor: 'white',
-      borderWidth: 5,
-      borderRadius: 8,
-      borderColor: 'rgba(87, 85, 86, 0.17)',
-    },
-    buttonText: {
-      fontSize: 20,
-      fontFamily: 'Roboto-Regular',
-    }
 });
 
 module.exports = Game;
