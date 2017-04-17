@@ -17,13 +17,13 @@ var styles = StyleSheet.create({
         marginTop: 65,
         flexDirection: 'column',
         justifyContent: 'center',
-        backgroundColor: 'rgba(33, 150, 243, 0.53)',
+        backgroundColor: '#f3f3f3',
     },
     title: {
         marginBottom: 50,
         fontSize: 50,
         textAlign: 'center',
-        color: 'white',
+        color: '#263238',
         fontFamily: 'Satisfy'
     },
     subtitle: {
@@ -33,7 +33,7 @@ var styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 25,
-        color: '#FEC101',
+        color: '#263238',
         alignSelf: 'center',
         fontFamily: 'Roboto-Bold',
     },
@@ -74,14 +74,38 @@ class Main extends Component{
         })
       })
   }
+  makeBackground(btn){
+    var obj = {
+      height: 75,
+      flexDirection: 'row',
+      backgroundColor: 'white',
+      borderWidth: 5,
+      borderRadius: 8,
+      borderColor: 'rgba(87, 85, 86, 0.17)',
+      marginBottom: 10,
+      marginTop: 10,
+      alignSelf: 'stretch',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }
+    if (btn === 0){
+      obj.backgroundColor = '#7ff1cf'
+    } else if (btn === 1 ){
+      obj.backgroundColor = '#78d3c1'
+    } else{
+      obj.backgroundColor = '#518b99'
+    }
+
+    return obj
+  }
   render(){
     return (
       <View style={styles.mainContainer}>
         <Text style={styles.title}>TriviaChat</Text>
         <Text style={styles.subtitle}>Selecting a level of difficulty</Text>
-        <TouchableOpacity style={styles.button} onPress={() => this.handleSubmit('easy')}><Text style={styles.buttonText}>Easy</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => this.handleSubmit('medium')}><Text style={styles.buttonText}>Medium</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => this.handleSubmit('hard')}><Text style={styles.buttonText}>Hard</Text></TouchableOpacity>
+        <TouchableOpacity style={this.makeBackground(0)} onPress={() => this.handleSubmit('easy')}><Text style={styles.buttonText}>Easy</Text></TouchableOpacity>
+        <TouchableOpacity style={this.makeBackground(1)} onPress={() => this.handleSubmit('medium')}><Text style={styles.buttonText}>Medium</Text></TouchableOpacity>
+        <TouchableOpacity style={this.makeBackground(2)} onPress={() => this.handleSubmit('hard')}><Text style={styles.buttonText}>Hard</Text></TouchableOpacity>
       </View>
     )
   }
