@@ -14,6 +14,7 @@ var Score = require('./Score');
 var Timer = require('./Timer');
 var Question = require('./Question');
 var Answers = require('./Answers');
+var Leaderboard = require('./Leaderboard');
 
 class Game extends Component{
   constructor(props){
@@ -258,21 +259,7 @@ class Game extends Component{
                 <Text style={styles.modalTitle}>Total Answers: {this.state.questionNumber}</Text>
                 <Text style={styles.modalTitle}>Correct Answers: {this.state.score / 10}</Text>
               </View>
-              <View style={styles.leaderboard}>
-                <View style={styles.leaderboardRow}>
-                  <Text>LeaderBoard</Text>
-                </View>
-                {
-                  topScoresByDifficultyLevel[difficultySelected].topFiveScores.map((item, index) => {
-                    return (
-                      <View key={index} style={styles.leaderboardRow}>
-                        <Text>#{index +1}</Text>
-                        <Text>{item}</Text>
-                      </View>
-                    )
-                  })
-                }
-              </View>
+              <Leaderboard topScoresByDifficultyLevel={topScoresByDifficultyLevel} difficultySelected={difficultySelected} />
               <View style={styles.modalRowButton}>
                 <TouchableOpacity style={styles.modalButton} onPress={() => {
                   this.goToHome(!this.state.modalVisible)
@@ -337,16 +324,6 @@ var styles = StyleSheet.create({
         marginBottom: 10,
         fontSize: 25,
         color: 'black'
-    },
-    leaderboard: {
-      flex: .5,
-      flexDirection: 'column',
-      backgroundColor: '#e1f5fe',
-    },
-    leaderboardRow: {
-      flex: .5,
-      flexDirection: 'row',
-      justifyContent: 'space-between'
     },
     modalRowButton: {
       flex: 0.15,

@@ -10,9 +10,7 @@ import {
 } from 'react-native';
 
 class Answers extends Component{
-
   render() {
-
     return (
       <View style={styles.answersDeck}>
         {
