@@ -32,10 +32,10 @@ class Game extends Component{
       allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
       score: 0,
       questionNumber: 0,
-      timer: 30000,
+      timer: 1000,
       interval: null,
       modalVisible: false,
-      topScoresByDifficultyLevel: {},
+      topScoresByDifficultyLevel: {easy:{topFiveScores: []}, medium:{topFiveScores: []}, hard:{topFiveScores: []}},
     }
     var allScores = {}
   }
@@ -96,6 +96,7 @@ class Game extends Component{
       let topFiveScores = scoresByDifficultyLevel.splice(0, scoresByDifficultyLevel.length - (scoresByDifficultyLevel.length -5))
       console.log('topFiveScores', topFiveScores)
       let topScoresByDifficultyLevel = this.state.topScoresByDifficultyLevel;
+
       topScoresByDifficultyLevel[difficulty] = {'topFiveScores': topFiveScores};
       console.log('topScoresByDifficultyLevel', topScoresByDifficultyLevel)
       this.setState({
@@ -147,7 +148,7 @@ class Game extends Component{
           allShuffledAnswers: [...questionSet[0].incorrect_answers,questionSet[0].correct_answer],
           score: 0,
           questionNumber: 0,
-          timer: 30000,
+          timer: 1000,
           interval: null,
           modalVisible: false,
         })
@@ -225,7 +226,7 @@ class Game extends Component{
     let userAnswer = this.state.userAnswer;
     let isUserAnswerCorrect = this.state.isUserAnswerCorrect;
     let correctAnswer = this.state.correctAnswer;
-
+    let difficultySelected = this.state.difficultySelected;
     let score = this.state.score;
     let timer = this.state.timer;
     let currentQuestionTitle = this.state.currentQuestionTitle;
@@ -235,6 +236,7 @@ class Game extends Component{
       backgroundColor: 'rgba(33, 150, 243, 0.53)',
     };
     let innerContainerTransparentStyle = {backgroundColor: 'white', padding: 20};
+    let topScoresByDifficultyLevel = this.state.topScoresByDifficultyLevel
 
     return (
       <View style={styles.mainContainer}>
@@ -255,6 +257,21 @@ class Game extends Component{
                 <Text style={styles.modalTitle}>Final Score: {this.state.score}</Text>
                 <Text style={styles.modalTitle}>Total Answers: {this.state.questionNumber}</Text>
                 <Text style={styles.modalTitle}>Correct Answers: {this.state.score / 10}</Text>
+              </View>
+              <View style={styles.leaderboard}>
+                <View style={styles.leaderboardRow}>
+                  <Text>LeaderBoard</Text>
+                </View>
+                {
+                  topScoresByDifficultyLevel[difficultySelected].topFiveScores.map((item, index) => {
+                    return (
+                      <View key={index} style={styles.leaderboardRow}>
+                        <Text>#{index +1}</Text>
+                        <Text>{item}</Text>
+                      </View>
+                    )
+                  })
+                }
               </View>
               <View style={styles.modalRowButton}>
                 <TouchableOpacity style={styles.modalButton} onPress={() => {
@@ -312,7 +329,7 @@ var styles = StyleSheet.create({
     mainModalTitle: {
       fontFamily: 'Satisfy',
       fontSize: 50,
-      marginBottom: 50,
+      marginBottom: 25,
       textAlign: 'center',
       color: 'rgba(254, 193, 1, 0.76)'
     },
@@ -323,7 +340,13 @@ var styles = StyleSheet.create({
     },
     leaderboard: {
       flex: .5,
-      flexDirection: 'column'
+      flexDirection: 'column',
+      backgroundColor: '#e1f5fe',
+    },
+    leaderboardRow: {
+      flex: .5,
+      flexDirection: 'row',
+      justifyContent: 'space-between'
     },
     modalRowButton: {
       flex: 0.15,
