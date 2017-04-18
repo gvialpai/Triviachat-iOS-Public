@@ -277,7 +277,7 @@ class Game extends Component{
         </View>
         <View style={styles.gameScreen}>
           <Question questionNumber={questionNumber} currentQuestionTitle={currentQuestionTitle} />
-          <Answers allShuffledAnswers={allShuffledAnswers} userAnswer={userAnswer} correctAnswer={correctAnswer} isUserAnswerCorrect={isUserAnswerCorrect} onPress={() => _this.handleAnswer(item)}/>
+          <Answers allShuffledAnswers={allShuffledAnswers} userAnswer={userAnswer} correctAnswer={correctAnswer} isUserAnswerCorrect={isUserAnswerCorrect} handleOnPress={(item) => _this.handleAnswer(item)}/>
         </View>
       </View>
     )

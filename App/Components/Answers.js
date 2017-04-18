@@ -11,14 +11,7 @@ import {
 
 class Answers extends Component{
 
-  handleAnswer(e) {
-    if (typeof this.props.handleAnswer === 'function') {
-    this.props.onPress(e.target.value);
-  }
-
-  }
   render() {
-    let _this = this;
 
     return (
       <View style={styles.answersDeck}>
@@ -29,7 +22,7 @@ class Answers extends Component{
             const incorrectAnswerStyle = (this.props.isUserAnswerCorrect == false && this.props.correctAnswer != item) && item == this.props.userAnswer ? {backgroundColor:'rgb(243, 85, 39)'} : null;
 
             return (
-              <TouchableOpacity key={item} style={[styles.button,correctAnswerStyle,incorrectAnswerStyle]} onPress={() => _this.handleAnswer(item)}>
+              <TouchableOpacity key={item} style={[styles.button,correctAnswerStyle,incorrectAnswerStyle]} onPress={() => this.props.handleOnPress(item)}>
                 <View>
                     <Text style={styles.buttonText}> {item} </Text>
                 </View>
@@ -40,6 +33,10 @@ class Answers extends Component{
       </View>
     )
   }
+}
+
+Answers.propTypes = {
+  allShuffledAnswers: React.PropTypes.array.isRequired
 }
 
 var styles = StyleSheet.create({
