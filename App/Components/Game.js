@@ -15,6 +15,7 @@ var Timer = require('./Timer');
 var Question = require('./Question');
 var Answers = require('./Answers');
 var Leaderboard = require('./Leaderboard');
+var Results = require('./Results');
 
 class Game extends Component{
   constructor(props){
@@ -33,7 +34,7 @@ class Game extends Component{
       allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
       score: 0,
       questionNumber: 0,
-      timer: 100000000,
+      timer: 1000,
       interval: null,
       modalVisible: false,
       topScoresByDifficultyLevel: {easy:{topFiveScores: []}, medium:{topFiveScores: []}, hard:{topFiveScores: []}},
@@ -149,7 +150,7 @@ class Game extends Component{
           allShuffledAnswers: [...questionSet[0].incorrect_answers,questionSet[0].correct_answer],
           score: 0,
           questionNumber: 0,
-          timer: 100000000,
+          timer: 1000,
           interval: null,
           modalVisible: false,
         })
@@ -252,13 +253,7 @@ class Game extends Component{
             >
            <View style={[styles.modalContainer, modalBackgroundStyle]}>
             <View style={[styles.innerContainer, innerContainerTransparentStyle]}>
-              <View style={styles.modalText}>
-                <Text style={styles.mainModalTitle}>Results</Text>
-                <Text style={styles.modalTitle}>Difficulty: {this.state.difficultySelected}</Text>
-                <Text style={styles.modalTitle}>Final Score: {this.state.score}</Text>
-                <Text style={styles.modalTitle}>Total Answers: {this.state.questionNumber}</Text>
-                <Text style={styles.modalTitle}>Correct Answers: {this.state.score / 10}</Text>
-              </View>
+              <Results difficultySelected={difficultySelected} score={score} questionNumber={questionNumber} />
               <Leaderboard topScoresByDifficultyLevel={topScoresByDifficultyLevel} difficultySelected={difficultySelected} />
               <View style={styles.modalRowButton}>
                 <TouchableOpacity style={styles.modalButton} onPress={() => {
@@ -308,21 +303,6 @@ var styles = StyleSheet.create({
       borderRadius: 5,
       flex: 1,
       justifyContent: 'space-around'
-    },
-    modalText: {
-      flex: 0.5
-    },
-    mainModalTitle: {
-      fontFamily: 'Satisfy',
-      fontSize: 50,
-      marginBottom: 25,
-      textAlign: 'center',
-      color: 'rgba(254, 193, 1, 0.76)'
-    },
-    modalTitle: {
-        marginBottom: 10,
-        fontSize: 25,
-        color: 'black'
     },
     modalRowButton: {
       flex: 0.15,
