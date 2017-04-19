@@ -23,7 +23,7 @@ var styles = StyleSheet.create({
         marginBottom: 50,
         fontSize: 50,
         textAlign: 'center',
-        color: '#263238',
+        color: '#78909c',
         fontFamily: 'Satisfy'
     },
     subtitle: {

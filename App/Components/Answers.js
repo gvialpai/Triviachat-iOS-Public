@@ -16,8 +16,8 @@ class Answers extends Component{
         {
           this.props.allShuffledAnswers.map((item) => {
 
-            const correctAnswerStyle = (this.props.userAnswer && this.props.correctAnswer === item) ? {backgroundColor:'rgb(39, 243, 177)'} : null;
-            const incorrectAnswerStyle = (this.props.isUserAnswerCorrect == false && this.props.correctAnswer != item) && item == this.props.userAnswer ? {backgroundColor:'rgb(243, 85, 39)'} : null;
+            const correctAnswerStyle = (this.props.userAnswer && this.props.correctAnswer === item) ? {backgroundColor:'#7ff1cf'} : null;
+            const incorrectAnswerStyle = (this.props.isUserAnswerCorrect == false && this.props.correctAnswer != item) && item == this.props.userAnswer ? {backgroundColor:'#f17f7f'} : null;
 
             return (
               <TouchableOpacity key={item} style={[styles.button,correctAnswerStyle,incorrectAnswerStyle]} onPress={() => this.props.handleOnPress(item)}>

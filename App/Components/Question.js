@@ -25,7 +25,7 @@ var styles = StyleSheet.create({
   questionContainer: {
     borderWidth: 5,
     borderRadius: 8,
-    borderColor: 'rgba(254, 193, 1, 0.76)',
+    borderColor: '#f1c97f',
     backgroundColor: 'white',
     padding: 5,
   },
