@@ -16,6 +16,7 @@ var Question = require('./Question');
 var Answers = require('./Answers');
 var Leaderboard = require('./Leaderboard');
 var Results = require('./Results');
+var Modalbutton = require('./Modalbutton');
 
 class Game extends Component{
   constructor(props){
@@ -255,16 +256,7 @@ class Game extends Component{
             <View style={[styles.innerContainer, innerContainerTransparentStyle]}>
               <Results difficultySelected={difficultySelected} score={score} questionNumber={questionNumber} />
               <Leaderboard topScoresByDifficultyLevel={topScoresByDifficultyLevel} difficultySelected={difficultySelected} />
-              <View style={styles.modalRowButton}>
-                <TouchableOpacity style={styles.modalButton} onPress={() => {
-                  this.goToHome(!this.state.modalVisible)
-                }}><Text style={styles.modalButtonText}>Home</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.modalButton} onPress={() => {
-                  this.restartGame(!this.state.modalVisible)
-                }}><Text style={styles.modalButtonText}>Restart</Text>
-                </TouchableOpacity>
-              </View>
+              <Modalbutton HomeOnPress={(item) => _this.goToHome(item)} RestartOnPress={(item) => _this.restartGame(item)} />
             </View>
            </View>
           </Modal>
@@ -302,28 +294,10 @@ var styles = StyleSheet.create({
     innerContainer: {
       borderRadius: 5,
       flex: 1,
-      justifyContent: 'space-around'
-    },
-    modalRowButton: {
-      flex: 0.15,
-      flexDirection: 'row',
-      justifyContent: 'space-between'
-    },
-    modalButton: {
-      height: 50,
-      width: 125,
+      justifyContent: 'space-around',
       borderWidth: 5,
       borderRadius: 8,
-      borderColor: 'rgba(87, 85, 86, 0.17)',
-      backgroundColor: '#FEC101',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    modalButtonText: {
-      fontSize: 25,
-      color: 'white',
-      alignSelf: 'center',
-      fontFamily: 'Roboto-Bold',
+      borderColor: '#7ff1cf',
     },
     playerInfo: {
       flex: .1,

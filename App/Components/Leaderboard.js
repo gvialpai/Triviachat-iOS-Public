@@ -40,6 +40,10 @@ var styles = StyleSheet.create({
     flex: .5,
     flexDirection: 'column',
     backgroundColor: '#e1f5fe',
+    borderWidth: 2,
+    borderRadius: 2,
+    borderColor: '#7ff1cf',
+
   },
   leaderboardRow: {
     flex: .5,
