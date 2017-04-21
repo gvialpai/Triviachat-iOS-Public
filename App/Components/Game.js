@@ -35,7 +35,7 @@ class Game extends Component{
       allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
       score: 0,
       questionNumber: 0,
-      timer: 1000,
+      timer: 30000,
       interval: null,
       modalVisible: false,
       topScoresByDifficultyLevel: {easy:{topFiveScores: []}, medium:{topFiveScores: []}, hard:{topFiveScores: []}},
@@ -151,7 +151,7 @@ class Game extends Component{
           allShuffledAnswers: [...questionSet[0].incorrect_answers,questionSet[0].correct_answer],
           score: 0,
           questionNumber: 0,
-          timer: 1000,
+          timer: 30000,
           interval: null,
           modalVisible: false,
         })
@@ -237,7 +237,7 @@ class Game extends Component{
     let modalVisible = this.state.modalVisible;
 
     let modalBackgroundStyle = {
-      backgroundColor: '#f3f3f3',
+      backgroundColor: '#f9f9f9',
     };
     let innerContainerTransparentStyle = {backgroundColor: 'white', padding: 20};
     let topScoresByDifficultyLevel = this.state.topScoresByDifficultyLevel
@@ -282,7 +282,7 @@ var styles = StyleSheet.create({
         marginTop: 65,
         flexDirection: 'column',
         justifyContent: 'center',
-        backgroundColor: '#f3f3f3',
+        backgroundColor: '#f9f9f9',
     },
     modalContainer: {
       flex: 1,

@@ -17,19 +17,20 @@ var styles = StyleSheet.create({
         marginTop: 65,
         flexDirection: 'column',
         justifyContent: 'center',
-        backgroundColor: '#f3f3f3',
+        backgroundColor: '#f9f9f9',
     },
     title: {
         marginBottom: 50,
-        fontSize: 50,
+        fontSize: 60,
         textAlign: 'center',
-        color: '#78909c',
+        color: '#518b99',
         fontFamily: 'Satisfy'
     },
     subtitle: {
       marginBottom: 25,
       fontSize: 25,
       fontFamily: 'Roboto-Regular',
+      color: '#263238'
     },
     buttonText: {
         fontSize: 25,
