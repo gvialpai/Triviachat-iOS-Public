@@ -14,11 +14,11 @@ class Modalbutton extends Component{
     return (
       <View style={styles.modalRowButton}>
         <TouchableOpacity style={styles.modalButton} onPress={() => {
-          this.props.goToHome(!this.state.modalVisible)
+          this.props.goToHome(!this.props.modalVisible)
         }}><Text style={styles.modalButtonText}>Home</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.modalButton} onPress={() => {
-          this.props.restartGame(!this.state.modalVisible)
+          this.props.restartGame(!this.props.modalVisible)
         }}><Text style={styles.modalButtonText}>Restart</Text>
         </TouchableOpacity>
       </View>

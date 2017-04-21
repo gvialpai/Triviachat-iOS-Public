@@ -234,6 +234,7 @@ class Game extends Component{
     let timer = this.state.timer;
     let currentQuestionTitle = this.state.currentQuestionTitle;
     let questionNumber = this.state.questionNumber;
+    let modalVisible = this.state.modalVisible;
 
     let modalBackgroundStyle = {
       backgroundColor: '#f3f3f3',
@@ -243,7 +244,6 @@ class Game extends Component{
 
     return (
       <View style={styles.mainContainer}>
-
         <View>
           <Modal
             animationType={"slide"}
@@ -256,7 +256,7 @@ class Game extends Component{
             <View style={[styles.innerContainer, innerContainerTransparentStyle]}>
               <Results difficultySelected={difficultySelected} score={score} questionNumber={questionNumber} />
               <Leaderboard topScoresByDifficultyLevel={topScoresByDifficultyLevel} difficultySelected={difficultySelected} />
-              <Modalbutton HomeOnPress={(item) => _this.goToHome(item)} RestartOnPress={(item) => _this.restartGame(item)} />
+              <Modalbutton modalVisible={modalVisible} goToHome={(item) => _this.goToHome(item)} restartGame={(item) => _this.restartGame(item)} />
             </View>
            </View>
           </Modal>
