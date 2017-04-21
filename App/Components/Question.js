@@ -23,14 +23,12 @@ class Question extends Component{
 
 var styles = StyleSheet.create({
   questionContainer: {
-    borderWidth: 5,
-    borderRadius: 8,
+    borderBottomWidth: 5,
     borderColor: '#f1c97f',
-    backgroundColor: 'white',
     padding: 5,
   },
   title: {
-    marginBottom: 20,
+    marginBottom: 5,
     fontSize: 20,
     textAlign: 'left',
     color: '#504b50',
