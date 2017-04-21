@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 var api = require('../Utils/api');
-var Game = require('./Game');
+var Game = require('./Game/Game');
 
 var styles = StyleSheet.create({
     mainContainer: {

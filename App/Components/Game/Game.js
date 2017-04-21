@@ -9,14 +9,12 @@ import {
   AsyncStorage
 } from 'react-native';
 
-var api = require('../Utils/api');
-var Score = require('./Score');
-var Timer = require('./Timer');
-var Question = require('./Question');
-var Answers = require('./Answers');
-var Leaderboard = require('./Leaderboard');
-var Results = require('./Results');
-var Modalbutton = require('./Modalbutton');
+var api = require('../../Utils/api');
+var PlayerInfo = require('./PlayerInfo/PlayerInfo');
+var GameScreen = require('./GameScreen/GameScreen');
+var Leaderboard = require('../Leaderboard');
+var Results = require('../Results');
+var Modalbutton = require('../Modalbutton');
 
 class Game extends Component{
   constructor(props){
@@ -250,7 +248,6 @@ class Game extends Component{
             transparent={false}
             visible={this.state.modalVisible}
             supportedOrientations={['portrait']}
-            onRequestClose={() => {alert("Modal has been closed.")}}
             >
            <View style={[styles.modalContainer, modalBackgroundStyle]}>
             <View style={[styles.innerContainer, innerContainerTransparentStyle]}>
@@ -262,14 +259,15 @@ class Game extends Component{
           </Modal>
         </View>
 
-        <View style={styles.playerInfo}>
-          <Score score={score} />
-          <Timer timer={timer} />
-        </View>
-        <View style={styles.gameScreen}>
-          <Question questionNumber={questionNumber} currentQuestionTitle={currentQuestionTitle} />
-          <Answers allShuffledAnswers={allShuffledAnswers} userAnswer={userAnswer} correctAnswer={correctAnswer} isUserAnswerCorrect={isUserAnswerCorrect} handleOnPress={(item) => _this.handleAnswer(item)}/>
-        </View>
+        <PlayerInfo score={score} timer={timer} />
+        <GameScreen
+          questionNumber={questionNumber}
+          currentQuestionTitle={currentQuestionTitle}
+          allShuffledAnswers={allShuffledAnswers}
+          userAnswer={userAnswer} correctAnswer={correctAnswer}
+          isUserAnswerCorrect={isUserAnswerCorrect}
+          handleOnPress={(item) => _this.handleAnswer(item)}
+        />
       </View>
     )
   }
@@ -298,15 +296,6 @@ var styles = StyleSheet.create({
       borderWidth: 5,
       borderRadius: 8,
       borderColor: '#7ff1cf',
-    },
-    playerInfo: {
-      flex: .1,
-      flexDirection: 'row',
-      justifyContent: 'space-between'
-    },
-    gameScreen: {
-      flex: 1,
-      flexDirection: 'column',
     },
 });
 
