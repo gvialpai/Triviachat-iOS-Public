@@ -34,7 +34,7 @@ class Game extends Component{
       modalVisible: false,
       topScoresByDifficultyLevel: {easy:{topFiveScores: []}, medium:{topFiveScores: []}, hard:{topFiveScores: []}},
     }
-    var allScores = {}
+    var allScores = {};
   }
 
   componentDidMount(){
@@ -42,11 +42,11 @@ class Game extends Component{
     this.setState({
       allShuffledAnswers: allShuffledAnswers,
     });
-    this.timerInterval()
+    this.timerInterval();
   }
 
   componentWillUnmount(){
-    clearInterval(this.state.interval)
+    clearInterval(this.state.interval);
   }
 
   timerInterval(){
@@ -57,11 +57,11 @@ class Game extends Component{
     let timeLeft = this.state.timer;
     if (timeLeft >= 1000){
       this.setState({
-        timer: timeLeft - 1000
+        timer: timeLeft - 1000;
       })
     } else {
       clearInterval(this.state.interval);
-      this.setScore(this.state.difficultySelected)
+      this.setScore(this.state.difficultySelected);
     }
   }
 
@@ -152,7 +152,7 @@ class Game extends Component{
       questionAnswers[randomIndex] = questionAnswers[i];
       questionAnswers[i] = itemAtIndex;
     }
-    return questionAnswers
+    return questionAnswers;
   }
 
   handleAnswer(answer){

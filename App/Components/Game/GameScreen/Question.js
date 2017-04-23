@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 
 class Question extends Component{
-
   render() {
     return (
       <View style={styles.questionContainer}>
@@ -35,7 +34,7 @@ var styles = StyleSheet.create({
   },
   questionSpan: {
     color: '#525152',
-    fontFamily: 'Roboto-Bold'
+    fontFamily: 'Roboto-Bold',
   },
 })
 

@@ -40,7 +40,7 @@ var styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 20,
     fontFamily: 'Roboto-Bold',
-    color: '#263238'
+    color: '#263238',
   },
 })
 

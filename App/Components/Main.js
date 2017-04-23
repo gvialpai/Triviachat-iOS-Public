@@ -52,7 +52,6 @@ class Main extends Component{
     } else{
       obj.backgroundColor = '#518b99'
     }
-
     return obj
   }
   render(){

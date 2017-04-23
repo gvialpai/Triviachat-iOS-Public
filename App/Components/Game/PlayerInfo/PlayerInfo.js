@@ -26,7 +26,7 @@ var styles = StyleSheet.create({
   playerInfo: {
     flex: .1,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
 })
 
