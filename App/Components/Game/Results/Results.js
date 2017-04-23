@@ -29,19 +29,22 @@ class Results extends Component{
 
 var styles = StyleSheet.create({
   modalText: {
-    flex: 0.5
+    flex: 0.5,
+    marginBottom: 20,
   },
   mainModalTitle: {
     fontFamily: 'Satisfy',
     fontSize: 50,
-    marginBottom: 25,
+    marginTop: 20,
+    marginBottom: 20,
     textAlign: 'center',
-    color: 'rgba(254, 193, 1, 0.76)'
+    color: '#518b99',
   },
   modalTitle: {
       marginBottom: 10,
-      fontSize: 25,
-      color: 'black'
+      fontSize: 20,
+      fontFamily: 'Roboto-Bold',
+      color: '#263238'
   },
 })
 

@@ -12,9 +12,7 @@ import {
 var api = require('../../Utils/api');
 var PlayerInfo = require('./PlayerInfo/PlayerInfo');
 var GameScreen = require('./GameScreen/GameScreen');
-var Leaderboard = require('../Leaderboard');
-var Results = require('../Results');
-var Modalbutton = require('../Modalbutton');
+var ResultModal = require('./Results/ResultModal');
 
 class Game extends Component{
   constructor(props){
@@ -33,7 +31,7 @@ class Game extends Component{
       allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
       score: 0,
       questionNumber: 0,
-      timer: 30000,
+      timer: 1000,
       interval: null,
       modalVisible: false,
       topScoresByDifficultyLevel: {easy:{topFiveScores: []}, medium:{topFiveScores: []}, hard:{topFiveScores: []}},
@@ -149,7 +147,7 @@ class Game extends Component{
           allShuffledAnswers: [...questionSet[0].incorrect_answers,questionSet[0].correct_answer],
           score: 0,
           questionNumber: 0,
-          timer: 30000,
+          timer: 1000,
           interval: null,
           modalVisible: false,
         })
@@ -233,11 +231,6 @@ class Game extends Component{
     let currentQuestionTitle = this.state.currentQuestionTitle;
     let questionNumber = this.state.questionNumber;
     let modalVisible = this.state.modalVisible;
-
-    let modalBackgroundStyle = {
-      backgroundColor: '#f9f9f9',
-    };
-    let innerContainerTransparentStyle = {backgroundColor: 'white', padding: 20};
     let topScoresByDifficultyLevel = this.state.topScoresByDifficultyLevel
 
     return (
@@ -248,14 +241,16 @@ class Game extends Component{
             transparent={false}
             visible={this.state.modalVisible}
             supportedOrientations={['portrait']}
-            >
-           <View style={[styles.modalContainer, modalBackgroundStyle]}>
-            <View style={[styles.innerContainer, innerContainerTransparentStyle]}>
-              <Results difficultySelected={difficultySelected} score={score} questionNumber={questionNumber} />
-              <Leaderboard topScoresByDifficultyLevel={topScoresByDifficultyLevel} difficultySelected={difficultySelected} />
-              <Modalbutton modalVisible={modalVisible} goToHome={(item) => _this.goToHome(item)} restartGame={(item) => _this.restartGame(item)} />
-            </View>
-           </View>
+          >
+            <ResultModal
+              difficultySelected={difficultySelected}
+              score={score}
+              questionNumber={questionNumber}
+              topScoresByDifficultyLevel={topScoresByDifficultyLevel}
+              modalVisible={modalVisible}
+              goToHome={(item) => _this.goToHome(item)}
+              restartGame={(item) => _this.restartGame(item)}
+            />
           </Modal>
         </View>
 
@@ -266,7 +261,7 @@ class Game extends Component{
           allShuffledAnswers={allShuffledAnswers}
           userAnswer={userAnswer} correctAnswer={correctAnswer}
           isUserAnswerCorrect={isUserAnswerCorrect}
-          handleOnPress={(item) => _this.handleAnswer(item)}
+          handleAnswer={(item) => _this.handleAnswer(item)}
         />
       </View>
     )
@@ -281,21 +276,6 @@ var styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         backgroundColor: '#f9f9f9',
-    },
-    modalContainer: {
-      flex: 1,
-      padding: 30,
-      marginTop: 65,
-      flexDirection: 'column',
-      justifyContent: 'center',
-    },
-    innerContainer: {
-      borderRadius: 5,
-      flex: 1,
-      justifyContent: 'space-around',
-      borderWidth: 5,
-      borderRadius: 8,
-      borderColor: '#7ff1cf',
     },
 });
 

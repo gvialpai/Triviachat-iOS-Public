@@ -10,49 +10,6 @@ import {
 var api = require('../Utils/api');
 var Game = require('./Game/Game');
 
-var styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-        padding: 30,
-        marginTop: 65,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        backgroundColor: '#f9f9f9',
-    },
-    title: {
-        marginBottom: 50,
-        fontSize: 60,
-        textAlign: 'center',
-        color: '#518b99',
-        fontFamily: 'Satisfy'
-    },
-    subtitle: {
-      marginBottom: 25,
-      fontSize: 25,
-      fontFamily: 'Roboto-Regular',
-      color: '#263238'
-    },
-    buttonText: {
-        fontSize: 25,
-        color: '#263238',
-        alignSelf: 'center',
-        fontFamily: 'Roboto-Bold',
-    },
-    button: {
-        height: 75,
-        flexDirection: 'row',
-        backgroundColor: 'white',
-        borderWidth: 5,
-        borderRadius: 8,
-        borderColor: 'rgba(87, 85, 86, 0.17)',
-        marginBottom: 10,
-        marginTop: 10,
-        alignSelf: 'stretch',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});
-
 class Main extends Component{
   constructor(props){
     super(props);
@@ -79,7 +36,6 @@ class Main extends Component{
     var obj = {
       height: 75,
       flexDirection: 'row',
-      backgroundColor: 'white',
       borderWidth: 5,
       borderRadius: 8,
       borderColor: 'rgba(87, 85, 86, 0.17)',
@@ -111,5 +67,35 @@ class Main extends Component{
     )
   }
 };
+
+var styles = StyleSheet.create({
+    mainContainer: {
+        flex: 1,
+        padding: 30,
+        marginTop: 65,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        backgroundColor: '#f9f9f9',
+    },
+    title: {
+        marginBottom: 50,
+        fontSize: 60,
+        textAlign: 'center',
+        color: '#518b99',
+        fontFamily: 'Satisfy'
+    },
+    subtitle: {
+      marginBottom: 25,
+      fontSize: 25,
+      fontFamily: 'Roboto-Regular',
+      color: '#263238'
+    },
+    buttonText: {
+        fontSize: 25,
+        color: '#263238',
+        alignSelf: 'center',
+        fontFamily: 'Roboto-Bold',
+    },
+});
 
 module.exports = Main;

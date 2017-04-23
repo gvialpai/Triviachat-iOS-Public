@@ -13,6 +13,7 @@ var Answers = require('./Answers');
 
 class PlayerInfo extends Component{
   render() {
+    let _this = this;
     return (
       <View style={styles.gameScreen}>
         <Question

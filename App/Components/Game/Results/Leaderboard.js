@@ -13,13 +13,14 @@ class LeaderBoard extends Component{
   render() {
     return (
       <View style={styles.leaderboard}>
-        <View style={styles.leaderboardRow}>
-          <Text>LeaderBoard</Text>
+        <View style={[styles.leaderboardRow, styles.leaderboardTitle]}>
+          <Text style={styles.leaderboardTitleText}>LeaderBoard</Text>
         </View>
         {
           this.props.topScoresByDifficultyLevel[this.props.difficultySelected].topFiveScores.map((item, index) => {
+            const tableRowColor = ((index % 2) === 0) ? {backgroundColor:'white'} : {backgroundColor:'rgba(242, 202, 127, 0.7)'};
             return (
-              <View key={index} style={styles.leaderboardRow}>
+              <View key={index} style={[styles.leaderboardRow, tableRowColor]}>
                 <Text>#{index +1}</Text>
                 <Text>{item}</Text>
               </View>
@@ -39,17 +40,27 @@ var styles = StyleSheet.create({
   leaderboard: {
     flex: .5,
     flexDirection: 'column',
-    backgroundColor: '#e1f5fe',
-    borderWidth: 2,
+    borderTopWidth: 2,
+    borderBottomWidth: 2,
     borderRadius: 2,
-    borderColor: '#7ff1cf',
-
+    borderColor: '#f1c97f',
+    marginBottom: 10,
+    marginTop: 10,
   },
   leaderboardRow: {
     flex: .5,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-around',
+    alignItems: 'center'
   },
+  leaderboardTitle: {
+    backgroundColor: '#f1c97f',
+    justifyContent: 'flex-start',
+    paddingLeft: 20,
+  },
+  leaderboardTitleText : {
+    fontFamily: 'Roboto-Bold',
+  }
 })
 
 module.exports = LeaderBoard;

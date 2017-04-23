@@ -13,13 +13,17 @@ class Modalbutton extends Component{
   render() {
     return (
       <View style={styles.modalRowButton}>
-        <TouchableOpacity style={styles.modalButton} onPress={() => {
-          this.props.goToHome(!this.props.modalVisible)
-        }}><Text style={styles.modalButtonText}>Home</Text>
+        <TouchableOpacity
+          style={styles.modalButton}
+          onPress={() => {this.props.goToHome(!this.props.modalVisible)}}>
+            <Text style={styles.modalButtonText}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.modalButton} onPress={() => {
-          this.props.restartGame(!this.props.modalVisible)
-        }}><Text style={styles.modalButtonText}>Restart</Text>
+        <TouchableOpacity
+          style={styles.modalButton}
+          onPress={() => {
+          this.props.restartGame(!this.props.modalVisible)}}
+        >
+          <Text style={styles.modalButtonText}>Restart</Text>
         </TouchableOpacity>
       </View>
     )
@@ -30,7 +34,8 @@ var styles = StyleSheet.create({
   modalRowButton: {
     flex: 0.15,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    padding: 30,
   },
   modalButton: {
     height: 50,
@@ -38,13 +43,13 @@ var styles = StyleSheet.create({
     borderWidth: 5,
     borderRadius: 8,
     borderColor: 'rgba(87, 85, 86, 0.17)',
-    backgroundColor: '#FEC101',
+    backgroundColor: '#7ff1cf',
     justifyContent: 'center',
     alignItems: 'center',
   },
   modalButtonText: {
-    fontSize: 25,
-    color: 'white',
+    fontSize: 15,
+    color: '#263238',
     alignSelf: 'center',
     fontFamily: 'Roboto-Bold',
   },

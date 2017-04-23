@@ -11,16 +11,19 @@ import {
 
 class Answers extends Component{
   render() {
+    let _this = this;
     return (
       <View style={styles.answersDeck}>
         {
           this.props.allShuffledAnswers.map((item) => {
-
             const correctAnswerStyle = (this.props.userAnswer && this.props.correctAnswer === item) ? {backgroundColor:'#7ff1cf'} : null;
             const incorrectAnswerStyle = (this.props.isUserAnswerCorrect == false && this.props.correctAnswer != item) && item == this.props.userAnswer ? {backgroundColor:'#f17f7f'} : null;
-
             return (
-              <TouchableOpacity key={item} style={[styles.button,correctAnswerStyle,incorrectAnswerStyle]} onPress={() => this.props.handleOnPress(item)}>
+              <TouchableOpacity
+                key={item}
+                style={[styles.button,correctAnswerStyle,incorrectAnswerStyle]}
+                onPress={() => _this.props.handleOnPress(item)}
+              >
                 <View>
                     <Text style={styles.buttonText}> {item} </Text>
                 </View>
