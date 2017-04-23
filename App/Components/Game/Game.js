@@ -66,8 +66,6 @@ class Game extends Component{
   }
 
   showResultScreen(difficulty){
-    console.log('difficulty in showResultScreen', difficulty)
-    console.log("this.state.topScoresByDifficultyLevel: ", this.state.topScoresByDifficultyLevel)
       if (!this.state.modalVisible){
         this.setState({
           modalVisible: true,
@@ -83,17 +81,12 @@ class Game extends Component{
     this.getAllScores(difficulty).then(allScores => {
       let latestScore = this.state.score;
       let scoresByDifficultyLevel = allScores[difficulty].scores
-      console.log('allScores in setScore', allScores);
       scoresByDifficultyLevel =   scoresByDifficultyLevel.concat(latestScore);
-      console.log('allScores for difficulty', scoresByDifficultyLevel);
       scoresByDifficultyLevel = scoresByDifficultyLevel.sort(this.sortArray);
-      console.log('allScores for difficulty after sorting', scoresByDifficultyLevel);
       let topFiveScores = scoresByDifficultyLevel.splice(0, scoresByDifficultyLevel.length - (scoresByDifficultyLevel.length -5))
-      console.log('topFiveScores', topFiveScores)
       let topScoresByDifficultyLevel = this.state.topScoresByDifficultyLevel;
 
       topScoresByDifficultyLevel[difficulty] = {'topFiveScores': topFiveScores};
-      console.log('topScoresByDifficultyLevel', topScoresByDifficultyLevel)
       this.setState({
         topScoresByDifficultyLevel: topScoresByDifficultyLevel,
       })
