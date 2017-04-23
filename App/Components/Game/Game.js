@@ -5,20 +5,18 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Modal,
   AsyncStorage
 } from 'react-native';
 
 var api = require('../../Utils/api');
 var PlayerInfo = require('./PlayerInfo/PlayerInfo');
 var GameScreen = require('./GameScreen/GameScreen');
-var ResultModal = require('./Results/ResultModal');
+var ResultsModal = require('./Results/ResultsModal');
 
 class Game extends Component{
   constructor(props){
     super(props);
     this.handleAnswer = this.handleAnswer.bind(this);
-
     this.state = {
       difficultySelected: this.props.difficultySelected,
       questions: this.props.questionSet,
@@ -41,7 +39,6 @@ class Game extends Component{
 
   componentDidMount(){
     let allShuffledAnswers = this.shuffle(this.state.allShuffledAnswers);
-
     this.setState({
       allShuffledAnswers: allShuffledAnswers,
     });
@@ -58,7 +55,6 @@ class Game extends Component{
   }
   counter(){
     let timeLeft = this.state.timer;
-
     if (timeLeft >= 1000){
       this.setState({
         timer: timeLeft - 1000
@@ -173,20 +169,19 @@ class Game extends Component{
     let questionSet = this.state.questions;
     let questionNumber = this.state.questionNumber;
     let i = questionNumber + 1;
-    let difficulty = this.state.difficultySelected
+    let difficulty = this.state.difficultySelected;
 
     if (answer == this.state.correctAnswer){
       isUserAnswerCorrect = true;
       score = score + 10;
-    }
-    else {
+    } else {
       isUserAnswerCorrect = false;
       score = score;
-    }
+    };
 
     if (i == questionSet.length){
       this.setScore(difficulty)
-    }
+    };
 
     for (i ; i < questionSet.length; i++){
       nextQuestion = this.props.questionSet[i];
@@ -195,9 +190,9 @@ class Game extends Component{
       nextIncorrectAnswers =   nextQuestion.incorrect_answers;
       allShuffledAnswers = [...nextIncorrectAnswers,nextCorrectAnswer];
       break
-    }
+    };
 
-    this.shuffle(allShuffledAnswers)
+    this.shuffle(allShuffledAnswers);
 
     this.setState({
       userAnswer: userAnswer,
@@ -217,7 +212,7 @@ class Game extends Component{
         questionNumber: questionNumber+1
       });
     }, 1500);
-  }
+  };
 
   render(){
     let _this = this;
@@ -231,30 +226,24 @@ class Game extends Component{
     let currentQuestionTitle = this.state.currentQuestionTitle;
     let questionNumber = this.state.questionNumber;
     let modalVisible = this.state.modalVisible;
-    let topScoresByDifficultyLevel = this.state.topScoresByDifficultyLevel
+    let topScoresByDifficultyLevel = this.state.topScoresByDifficultyLevel;
 
     return (
       <View style={styles.mainContainer}>
-        <View>
-          <Modal
-            animationType={"slide"}
-            transparent={false}
-            visible={this.state.modalVisible}
-            supportedOrientations={['portrait']}
-          >
-            <ResultModal
-              difficultySelected={difficultySelected}
-              score={score}
-              questionNumber={questionNumber}
-              topScoresByDifficultyLevel={topScoresByDifficultyLevel}
-              modalVisible={modalVisible}
-              goToHome={(item) => _this.goToHome(item)}
-              restartGame={(item) => _this.restartGame(item)}
-            />
-          </Modal>
-        </View>
-
-        <PlayerInfo score={score} timer={timer} />
+        <ResultsModal
+          visible={modalVisible}
+          difficultySelected={difficultySelected}
+          score={score}
+          questionNumber={questionNumber}
+          topScoresByDifficultyLevel={topScoresByDifficultyLevel}
+          modalVisible={modalVisible}
+          goToHome={(item) => _this.goToHome(item)}
+          restartGame={(item) => _this.restartGame(item)}
+        />
+        <PlayerInfo
+          score={score}
+          timer={timer}
+        />
         <GameScreen
           questionNumber={questionNumber}
           currentQuestionTitle={currentQuestionTitle}

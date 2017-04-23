@@ -6,45 +6,50 @@ import {
   Text,
   View,
   StyleSheet,
-  TouchableOpacity
 } from 'react-native';
+
+var SessionResults = require('./SessionResults');
+var Leaderboard = require('./Leaderboard');
+var Modalbutton = require('./Modalbutton');
 
 class Results extends Component{
   render() {
+    let _this = this;
+    let modalBackgroundStyle = { backgroundColor: '#f9f9f9'};
+    let innerContainerTransparentStyle = {padding: 20};
     return (
-      <View style={styles.modalText}>
-        <Text style={styles.mainModalTitle}>Results</Text>
-        <Text style={styles.modalTitle}>Difficulty: {this.props.difficultySelected}</Text>
-        <Text style={styles.modalTitle}>Final Score: {this.props.score}</Text>
-        <Text style={styles.modalTitle}>Total Answers: {this.props.questionNumber}</Text>
-        <Text style={styles.modalTitle}>Correct Answers: {this.props.score / 10}</Text>
+      <View style={[styles.modalContainer, modalBackgroundStyle]}>
+       <View style={[styles.innerContainer, innerContainerTransparentStyle]}>
+         <SessionResults
+           difficultySelected={this.props.difficultySelected}
+           score={this.props.score}
+           questionNumber={this.props.questionNumber}
+          />
+         <Leaderboard
+           topScoresByDifficultyLevel={this.props.topScoresByDifficultyLevel}
+           difficultySelected={this.props.difficultySelected}
+          />
+         <Modalbutton
+           modalVisible={this.props.modalVisible}
+           goToHome={(item) => _this.props.goToHome(item)}
+           restartGame={(item) => _this.props.restartGame(item)}
+         />
+       </View>
       </View>
     )
   }
 }
 
-// Results.propTypes = {
-//   topScoresByDifficultyLevel: React.PropTypes.object.isRequired
-// }
-
 var styles = StyleSheet.create({
-  modalText: {
-    flex: 0.5,
-    marginBottom: 20,
+  modalContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
-  mainModalTitle: {
-    fontFamily: 'Satisfy',
-    fontSize: 50,
-    marginTop: 20,
-    marginBottom: 20,
-    textAlign: 'center',
-    color: '#518b99',
-  },
-  modalTitle: {
-      marginBottom: 10,
-      fontSize: 20,
-      fontFamily: 'Roboto-Bold',
-      color: '#263238'
+  innerContainer: {
+    borderRadius: 5,
+    flex: 1,
+    justifyContent: 'space-around',
   },
 })
 

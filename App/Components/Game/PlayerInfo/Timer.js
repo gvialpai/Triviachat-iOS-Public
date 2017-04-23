@@ -9,11 +9,10 @@ import {
 } from 'react-native';
 
 class Timer extends Component{
-
   render() {
     return (
       <View>
-      <Text style={styles.timer}>Time: {this.props.timer / 1000}</Text>
+        <Text style={styles.timer}>Time: {this.props.timer / 1000}</Text>
       </View>
     )
   }

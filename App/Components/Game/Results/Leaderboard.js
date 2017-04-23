@@ -6,7 +6,7 @@ import {
   Text,
   View,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 
 class LeaderBoard extends Component{
@@ -33,7 +33,7 @@ class LeaderBoard extends Component{
 }
 
 LeaderBoard.propTypes = {
-  topScoresByDifficultyLevel: React.PropTypes.object.isRequired
+  topScoresByDifficultyLevel: React.PropTypes.object.isRequired,
 }
 
 var styles = StyleSheet.create({
@@ -51,7 +51,7 @@ var styles = StyleSheet.create({
     flex: .5,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   leaderboardTitle: {
     backgroundColor: '#f1c97f',

@@ -12,7 +12,7 @@ var Main = require('./App/Components/Main')
 var styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#98c8f8'
+      backgroundColor: '#98c8f8',
     },
 });
 
@@ -24,7 +24,8 @@ class TriviaChatReactNative extends Component {
         initialRoute={{
           title: 'Home',
           component: Main
-        }} />
+        }}
+      />
     );
   }
 }

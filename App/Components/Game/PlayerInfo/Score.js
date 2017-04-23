@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 
 class Score extends Component{
-
   render() {
     return (
       <View>
