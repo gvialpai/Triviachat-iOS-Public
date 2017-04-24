@@ -34,7 +34,7 @@ class Game extends Component{
       modalVisible: false,
       topScoresByDifficultyLevel: {easy:{topFiveScores: []}, medium:{topFiveScores: []}, hard:{topFiveScores: []}},
     }
-    var allScores = {};
+    allScores = {};
   }
 
   componentDidMount(){
@@ -79,25 +79,28 @@ class Game extends Component{
 
   setScore(difficulty){
     this.getAllScores(difficulty).then(allScores => {
+      if(!allScores[difficulty]){
+        allScores[difficulty] = {scores: []};
+      }
+
       let latestScore = this.state.score;
       scores = allScores[difficulty].scores.slice()
       scores = scores.concat(latestScore);
       scores = scores.sort(this.sortArray);
-      allScores[difficulty] = {scores: []};
-
-      let topFiveScores = scores.splice(0, scores.length - (scores.length -5))
+      let topFiveScores = scores.splice(0, scores.length - (scores.length -5));
       let topScoresByDifficultyLevel = this.state.topScoresByDifficultyLevel;
       topScoresByDifficultyLevel[difficulty] = {'topFiveScores': topFiveScores};
-
+      allScores[difficulty] = {scores: topFiveScores};
+      
       this.setState({
         topScoresByDifficultyLevel: topScoresByDifficultyLevel,
-        modalVisible: true
+        modalVisible: true,
       })
 
       try {
-        AsyncStorage.setItem('scoresDB', JSON.stringify(allScores));
+        AsyncStorage.setItem('scoresDB1', JSON.stringify(allScores));
       } catch (error) {
-        console.log('error', error)
+        console.log('error', error);
       }
     })
   }
@@ -108,16 +111,8 @@ class Game extends Component{
 
   getAllScores(difficulty){
     return new Promise((resolve) => {
-      const value = AsyncStorage.getItem('scoresDB').then((allScores) => {
-        allScores = JSON.parse(allScores)
-
-        if (!allScores){
-          allScores = {}
-        }
-
-        if(!allScores[difficulty]){
-          allScores[difficulty] = {scores: []}
-        }
+      AsyncStorage.getItem('scoresDB1').then((allScores) => {
+        var allScores = JSON.parse(allScores);
         resolve(allScores);
       })
     })
