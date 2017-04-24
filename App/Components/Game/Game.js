@@ -29,7 +29,7 @@ class Game extends Component{
       allShuffledAnswers: [...this.props.questionSet[0].incorrect_answers,this.props.questionSet[0].correct_answer],
       score: 0,
       questionNumber: 0,
-      timer: 1000,
+      timer: 30000,
       interval: null,
       modalVisible: false,
       topScoresByDifficultyLevel: {easy:{topFiveScores: []}, medium:{topFiveScores: []}, hard:{topFiveScores: []}},
@@ -57,7 +57,7 @@ class Game extends Component{
     let timeLeft = this.state.timer;
     if (timeLeft >= 1000){
       this.setState({
-        timer: timeLeft - 1000;
+        timer: timeLeft - 1000
       })
     } else {
       clearInterval(this.state.interval);
@@ -66,36 +66,38 @@ class Game extends Component{
   }
 
   showResultScreen(difficulty){
-      if (!this.state.modalVisible){
-        this.setState({
-          modalVisible: true,
-        })
-      } else {
-        this.setState({
-          modalVisible: false,
-        })
-      }
+    if (!this.state.modalVisible){
+      this.setState({
+        modalVisible: true,
+      })
+    } else {
+      this.setState({
+        modalVisible: false,
+      })
+    }
   }
 
   setScore(difficulty){
     this.getAllScores(difficulty).then(allScores => {
       let latestScore = this.state.score;
-      let scoresByDifficultyLevel = allScores[difficulty].scores
-      scoresByDifficultyLevel =   scoresByDifficultyLevel.concat(latestScore);
-      scoresByDifficultyLevel = scoresByDifficultyLevel.sort(this.sortArray);
-      let topFiveScores = scoresByDifficultyLevel.splice(0, scoresByDifficultyLevel.length - (scoresByDifficultyLevel.length -5))
-      let topScoresByDifficultyLevel = this.state.topScoresByDifficultyLevel;
+      scores = allScores[difficulty].scores.slice()
+      scores = scores.concat(latestScore);
+      scores = scores.sort(this.sortArray);
+      allScores[difficulty] = {scores: []};
 
+      let topFiveScores = scores.splice(0, scores.length - (scores.length -5))
+      let topScoresByDifficultyLevel = this.state.topScoresByDifficultyLevel;
       topScoresByDifficultyLevel[difficulty] = {'topFiveScores': topFiveScores};
+
       this.setState({
         topScoresByDifficultyLevel: topScoresByDifficultyLevel,
+        modalVisible: true
       })
 
       try {
-        AsyncStorage.setItem('scores', JSON.stringify(allScores));
-        this.showResultScreen(difficulty);
+        AsyncStorage.setItem('scoresDB', JSON.stringify(allScores));
       } catch (error) {
-        console.log('Error saving data', error);
+        console.log('error', error)
       }
     })
   }
@@ -106,8 +108,12 @@ class Game extends Component{
 
   getAllScores(difficulty){
     return new Promise((resolve) => {
-      AsyncStorage.getItem('scores').then((allScores) => {
+      const value = AsyncStorage.getItem('scoresDB').then((allScores) => {
         allScores = JSON.parse(allScores)
+
+        if (!allScores){
+          allScores = {}
+        }
 
         if(!allScores[difficulty]){
           allScores[difficulty] = {scores: []}
@@ -136,7 +142,7 @@ class Game extends Component{
           allShuffledAnswers: [...questionSet[0].incorrect_answers,questionSet[0].correct_answer],
           score: 0,
           questionNumber: 0,
-          timer: 1000,
+          timer: 30000,
           interval: null,
           modalVisible: false,
         })
