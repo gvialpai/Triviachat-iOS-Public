@@ -21,6 +21,7 @@ class Score extends Component{
 var styles = StyleSheet.create({
   score: {
     fontFamily: 'Roboto-Bold',
+    color: '#525152',
   },
 })
 

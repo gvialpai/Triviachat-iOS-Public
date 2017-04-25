@@ -21,8 +21,8 @@ class LeaderBoard extends Component{
             const tableRowColor = ((index % 2) === 0) ? {backgroundColor:'white'} : {backgroundColor:'rgba(242, 202, 127, 0.7)'};
             return (
               <View key={index} style={[styles.leaderboardRow, tableRowColor]}>
-                <Text>#{index +1}</Text>
-                <Text>{item}</Text>
+                <Text style={styles.leaderboardText}>#{index +1}</Text>
+                <Text style={styles.leaderboardText}>{item}</Text>
               </View>
             )
           })
@@ -58,8 +58,13 @@ var styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingLeft: 20,
   },
-  leaderboardTitleText : {
+  leaderboardTitleText: {
     fontFamily: 'Roboto-Bold',
+    color: '#525152',
+  },
+  leaderboardText: {
+    color: '#525152',
+    fontFamily: 'Roboto',
   }
 })
 

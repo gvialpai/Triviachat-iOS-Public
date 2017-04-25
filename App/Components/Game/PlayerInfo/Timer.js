@@ -21,6 +21,7 @@ class Timer extends Component{
 var styles = StyleSheet.create({
   timer: {
     fontFamily: 'Roboto-Bold',
+    color: '#525152',
   },
 })
 

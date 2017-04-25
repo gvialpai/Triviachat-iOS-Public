@@ -14,10 +14,22 @@ class SessionResults extends Component{
     return (
       <View style={styles.modalText}>
         <Text style={styles.mainModalTitle}>Results</Text>
-        <Text style={styles.modalTitle}>Difficulty: {this.props.difficultySelected}</Text>
-        <Text style={styles.modalTitle}>Final Score: {this.props.score}</Text>
-        <Text style={styles.modalTitle}>Total Answers: {this.props.questionNumber}</Text>
-        <Text style={styles.modalTitle}>Correct Answers: {this.props.score / 10}</Text>
+        <Text style={styles.modalTitle}>
+          <Text style={styles.modalTitleBold}>
+            Difficulty:</Text> {this.props.difficultySelected}
+        </Text>
+        <Text style={styles.modalTitle}>
+          <Text style={styles.modalTitleBold}>
+            Final Score:</Text> {this.props.score}
+        </Text>
+        <Text style={styles.modalTitle}>
+          <Text style={styles.modalTitleBold}>
+            Total Answers:</Text> {this.props.questionNumber}
+        </Text>
+        <Text style={styles.modalTitle}>
+          <Text style={styles.modalTitleBold}>
+            Correct Answers:</Text> {this.props.score / 10}
+        </Text>
       </View>
     )
   }
@@ -38,10 +50,13 @@ var styles = StyleSheet.create({
   },
   modalTitle: {
     marginBottom: 10,
-    fontSize: 20,
-    fontFamily: 'Roboto-Bold',
-    color: '#263238',
+    fontSize: 18,
+    fontFamily: 'Roboto',
+    color: '#525152',
   },
+  modalTitleBold: {
+    fontFamily: 'Roboto-Bold',
+  }
 })
 
 module.exports = SessionResults;

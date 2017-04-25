@@ -87,11 +87,11 @@ var styles = StyleSheet.create({
       marginBottom: 25,
       fontSize: 25,
       fontFamily: 'Roboto-Regular',
-      color: '#263238'
+      color: '#525152',
     },
     buttonText: {
         fontSize: 25,
-        color: '#263238',
+        color: '#525152',
         alignSelf: 'center',
         fontFamily: 'Roboto-Bold',
     },

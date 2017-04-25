@@ -22,7 +22,7 @@ class Question extends Component{
 
 var styles = StyleSheet.create({
   questionContainer: {
-    borderBottomWidth: 5,
+    borderBottomWidth: 3,
     borderColor: '#f1c97f',
     padding: 5,
   },

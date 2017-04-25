@@ -49,7 +49,7 @@ var styles = StyleSheet.create({
   },
   modalButtonText: {
     fontSize: 15,
-    color: '#263238',
+    color: '#525152',
     alignSelf: 'center',
     fontFamily: 'Roboto-Bold',
   },
