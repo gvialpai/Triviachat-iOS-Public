@@ -58,8 +58,9 @@ var styles = StyleSheet.create({
     borderColor: 'rgba(87, 85, 86, 0.17)',
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: 'Roboto-Regular',
+    color: '#525152',
   }
 })
 
