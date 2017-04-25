@@ -91,14 +91,14 @@ class Game extends Component{
       let topScoresByDifficultyLevel = this.state.topScoresByDifficultyLevel;
       topScoresByDifficultyLevel[difficulty] = {'topFiveScores': topFiveScores};
       allScores[difficulty] = {scores: topFiveScores};
-      
+
       this.setState({
         topScoresByDifficultyLevel: topScoresByDifficultyLevel,
         modalVisible: true,
       })
 
       try {
-        AsyncStorage.setItem('scoresDB1', JSON.stringify(allScores));
+        AsyncStorage.setItem('scoresDB26', JSON.stringify(allScores));
       } catch (error) {
         console.log('error', error);
       }
@@ -111,8 +111,11 @@ class Game extends Component{
 
   getAllScores(difficulty){
     return new Promise((resolve) => {
-      AsyncStorage.getItem('scoresDB1').then((allScores) => {
+      AsyncStorage.getItem('scoresDB26').then((allScores) => {
         var allScores = JSON.parse(allScores);
+        if(!allScores){
+          allScores = {};
+        }
         resolve(allScores);
       })
     })
