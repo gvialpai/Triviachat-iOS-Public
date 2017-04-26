@@ -34,7 +34,7 @@ class PlayerInfo extends Component{
 
 var styles = StyleSheet.create({
   gameScreen: {
-    flex: 1,
+    flex: 0.9,
     flexDirection: 'column',
   },
 })

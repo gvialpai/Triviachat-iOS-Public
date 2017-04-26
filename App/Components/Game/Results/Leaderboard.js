@@ -40,6 +40,7 @@ var styles = StyleSheet.create({
   leaderboard: {
     flex: .35,
     flexDirection: 'column',
+    justifyContent: 'center',
     borderTopWidth: 2,
     borderBottomWidth: 2,
     borderRadius: 2,

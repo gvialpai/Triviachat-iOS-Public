@@ -37,8 +37,9 @@ class SessionResults extends Component{
 
 var styles = StyleSheet.create({
   modalText: {
-    flex: 0.5,
+    flex: 0.35,
     marginBottom: 20,
+    justifyContent: 'center',
   },
   mainModalTitle: {
     fontFamily: 'Satisfy',

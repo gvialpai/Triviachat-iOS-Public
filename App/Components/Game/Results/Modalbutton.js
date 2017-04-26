@@ -12,33 +12,39 @@ import {
 class Modalbutton extends Component{
   render() {
     return (
-      <View style={styles.modalRowButton}>
-        <TouchableOpacity
-          style={styles.modalButton}
-          onPress={() => {this.props.goToHome(!this.props.modalVisible)}}>
-            <Text style={styles.modalButtonText}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.modalButton}
-          onPress={() => {
-          this.props.restartGame(!this.props.modalVisible)}}
-        >
-          <Text style={styles.modalButtonText}>Restart</Text>
-        </TouchableOpacity>
+      <View style={styles.modalColumnButton}>
+        <View style={styles.modalRowButton}>
+          <TouchableOpacity
+            style={styles.modalButton}
+            onPress={() => {this.props.goToHome(!this.props.modalVisible)}}>
+              <Text style={styles.modalButtonText}>Home</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.modalButton}
+            onPress={() => {
+            this.props.restartGame(!this.props.modalVisible)}}
+          >
+            <Text style={styles.modalButtonText}>Restart</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }
 }
 
 var styles = StyleSheet.create({
+  modalColumnButton: {
+    flex: 0.2,
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
   modalRowButton: {
-    flex: 0.15,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
   },
   modalButton: {
     height: 50,
-    width: 125,
+    width: 125,    
     borderWidth: 5,
     borderRadius: 8,
     borderColor: 'rgba(87, 85, 86, 0.17)',
