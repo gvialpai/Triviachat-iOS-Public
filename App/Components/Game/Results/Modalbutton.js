@@ -35,7 +35,6 @@ var styles = StyleSheet.create({
     flex: 0.15,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 30,
   },
   modalButton: {
     height: 50,

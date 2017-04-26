@@ -57,44 +57,63 @@ class Main extends Component{
   render(){
     return (
       <View style={styles.mainContainer}>
-        <Text style={styles.title}>TriviaChat</Text>
-        <Text style={styles.subtitle}>Selecting a level of difficulty</Text>
-        <TouchableOpacity style={this.makeBackground(0)} onPress={() => this.handleSubmit('easy')}><Text style={styles.buttonText}>Easy</Text></TouchableOpacity>
-        <TouchableOpacity style={this.makeBackground(1)} onPress={() => this.handleSubmit('medium')}><Text style={styles.buttonText}>Medium</Text></TouchableOpacity>
-        <TouchableOpacity style={this.makeBackground(2)} onPress={() => this.handleSubmit('hard')}><Text style={styles.buttonText}>Hard</Text></TouchableOpacity>
+        <View style={styles.titleView}>
+          <Text style={styles.title}>TriviaChat</Text>
+        </View>
+        <View style={styles.subtitleView}>
+          <Text style={styles.subtitle}>Selecting a level of difficulty</Text>
+        </View>
+        <View style={styles.difficultyLevels}>
+          <TouchableOpacity style={this.makeBackground(0)} onPress={() => this.handleSubmit('easy')}><Text style={styles.buttonText}>Easy</Text></TouchableOpacity>
+          <TouchableOpacity style={this.makeBackground(1)} onPress={() => this.handleSubmit('medium')}><Text style={styles.buttonText}>Medium</Text></TouchableOpacity>
+          <TouchableOpacity style={this.makeBackground(2)} onPress={() => this.handleSubmit('hard')}><Text style={styles.buttonText}>Hard</Text></TouchableOpacity>
+        </View>
       </View>
     )
   }
 };
 
 var styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-        padding: 30,
-        marginTop: 65,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        backgroundColor: '#f9f9f9',
-    },
-    title: {
-        marginBottom: 50,
-        fontSize: 60,
-        textAlign: 'center',
-        color: '#518b99',
-        fontFamily: 'Satisfy'
-    },
-    subtitle: {
-      marginBottom: 25,
-      fontSize: 25,
-      fontFamily: 'Roboto-Regular',
-      color: '#525152',
-    },
-    buttonText: {
-        fontSize: 25,
-        color: '#525152',
-        alignSelf: 'center',
-        fontFamily: 'Roboto-Bold',
-    },
+  mainContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    backgroundColor: '#f9f9f9',
+    padding: 30,
+  },
+  titleView: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 0.4,
+  },
+  title: {
+    fontSize: 60,
+    textAlign: 'center',
+    color: '#518b99',
+    fontFamily: 'Satisfy',
+    paddingTop: 40,
+  },
+  subtitleView: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: .1,
+  },
+  subtitle: {
+    fontSize: 20,
+    fontFamily: 'Roboto-Regular',
+    color: '#525152',
+  },
+  difficultyLevels: {
+    flex: 0.5,
+  },
+  buttonText: {
+    fontSize: 25,
+    color: '#525152',
+    alignSelf: 'center',
+    fontFamily: 'Roboto-Bold',
+  },
 });
 
 module.exports = Main;

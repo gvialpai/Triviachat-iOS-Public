@@ -38,7 +38,7 @@ LeaderBoard.propTypes = {
 
 var styles = StyleSheet.create({
   leaderboard: {
-    flex: .5,
+    flex: .35,
     flexDirection: 'column',
     borderTopWidth: 2,
     borderBottomWidth: 2,
